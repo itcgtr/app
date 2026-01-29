@@ -35,13 +35,13 @@ class _About_PageState extends State<About_Page> {
   @override
   void initState() {
     super.initState();
-    print('Driver Page Loaded');
+    print('About Page Loaded');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text("អំពីយើង")),
+      appBar: AppBar(title: Text("About Page")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

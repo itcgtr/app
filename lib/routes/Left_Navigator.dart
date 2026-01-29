@@ -94,7 +94,7 @@ class _Left_NavigatorState extends State<Left_Navigator> {
             title: Text('About Us', overflow: TextOverflow.ellipsis, maxLines: 1),
             onTap: () {
               Navigator.pop(context); //
-              // Navigator.of(context).pushNamed('/about');
+              Navigator.of(context).pushNamed('/about');
             },
           ),
         ],

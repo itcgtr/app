@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 import 'package:gtr_app/Environment.dart';
 import 'package:gtr_app/utilities/Debug.dart';
@@ -11,7 +10,6 @@ import 'package:gtr_app/routes/Routes.dart';
 import 'package:gtr_app/themes/Theme_Data.dart';
 
 void main() {
-  usePathUrlStrategy();
   runApp(const App());
 }
 

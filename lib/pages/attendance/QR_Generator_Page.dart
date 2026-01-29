@@ -4,10 +4,29 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gtr_app/Environment.dart';
+import 'package:gtr_app/routes/Routes.dart';
+import 'package:gtr_app/themes/Theme_Data.dart';
+import 'package:gtr_app/utilities/Debug.dart';
+import 'package:gtr_app/utilities/Token.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-void main() async {
-  runApp(MaterialApp(home: QR_Generator_Page()));
+void main() {
+  runApp(const App());
+}
+
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: TITLE, //
+      theme: Theme_Data.get_theme(),
+      home: QR_Generator_Page(),
+      routes: Routes.routes,
+      debugShowCheckedModeBanner: false,
+    );
+  }
 }
 
 class QR_Generator_Page extends StatefulWidget {
@@ -30,53 +49,84 @@ class QR_Generator_PageState extends State<QR_Generator_Page> {
   String class_name = "";
   String class_type = "";
 
-  Dio dio = Dio(
-    BaseOptions(
-      baseUrl: HOST_API, //
-      contentType: Headers.formUrlEncodedContentType, //
-      connectTimeout: Duration(seconds: 5), //
-    ),
-  );
+  String? access_token;
   FlutterSecureStorage secure_storage = FlutterSecureStorage();
 
-  String? access_token;
+  final Dio dio = Dio(
+    BaseOptions(
+      baseUrl: HOST_API, //
+      connectTimeout: Duration(seconds: 10), //
+      sendTimeout: Duration(seconds: 10), //
+      receiveTimeout: Duration(seconds: 10), //
+    ),
+  );
 
   @override
   void initState() {
     super.initState();
     init();
+    update_qr_10s();
+  }
+
+  void update_qr_10s() {
+    Future.delayed(Duration(seconds: 10), () async {
+      if (is_enable_scan) {
+        String token = generate_token();
+        await dio
+            .post(
+              '/attendance/enable_qr_scan',
+              data: FormData.fromMap({
+                "code": token, //
+                "class_name": class_name, //
+                "class_type": class_type, //
+              }),
+            )
+            .then((r) {
+              qr = token;
+              debug("Updated QR: $qr");
+              setState(() {});
+            })
+            .catchError((e) {
+              show_snackbar(context: context, message: "Error", color: Colors.red);
+            });
+      }
+      update_qr_10s();
+    });
   }
 
   void init() async {
+    await dio
+        .post(
+          "/attendance/classes", //
+          data: FormData.fromMap({}),
+        ) //
+        .then((response) {
+          for (var item in response.data) {
+            _class_names.add(item["class_name"]);
+          }
+          setState(() {});
+        })
+        .catchError((_) {
+          show_snackbar(context: context, message: "Error", color: Colors.red);
+        });
+
+    await dio
+        .post(
+          "/attendance/class_types", //
+          data: FormData.fromMap({}),
+        ) //
+        .then((response) {
+          for (var item in response.data) {
+            _class_types.add(item["class_type"]);
+          }
+          setState(() {});
+        })
+        .catchError((_) {
+          show_snackbar(context: context, message: "Error", color: Colors.red);
+        });
+
     access_token = await secure_storage.read(key: "access_token");
-
-    if (access_token != null) {
-      dio.options.headers['Authorization'] = 'Bearer $access_token';
-
-      await dio
-          .post("/attendance/classes") //
-          .then((response) {
-            for (var item in response.data) {
-              _class_names.add(item["class_name"]);
-            }
-            setState(() {});
-          })
-          .catchError((_) {
-            show_snackbar_message(context: context, message: "Error", color: Colors.red);
-          });
-
-      await dio
-          .post("/attendance/class_types") //
-          .then((response) {
-            for (var item in response.data) {
-              _class_types.add(item["class_type"]);
-            }
-            setState(() {});
-          })
-          .catchError((_) {
-            show_snackbar_message(context: context, message: "Error", color: Colors.red);
-          });
-    }
+    dio.options.headers['Authorization'] = 'Bearer $access_token';
   }
 
   @override
@@ -93,6 +143,7 @@ class QR_Generator_PageState extends State<QR_Generator_Page> {
                 children: [
                   Expanded(
                     child: DropdownWithSearch(
+                      hintText: "Class Name", //
                       items: _class_names,
                       isEnabled: !is_enable_scan,
                       onChanged: (value) {
@@ -105,8 +156,10 @@ class QR_Generator_PageState extends State<QR_Generator_Page> {
 
                   SizedBox(width: 8),
 
-                  Expanded(
+                  SizedBox(
+                    width: 120,
                     child: DropdownWithSearch(
+                      hintText: "Class Type", //
                       items: _class_types,
                       isEnabled: !is_enable_scan,
                       onChanged: (value) {
@@ -126,24 +179,25 @@ class QR_Generator_PageState extends State<QR_Generator_Page> {
                       label: Text("Enable", style: TextStyle(color: Colors.green)), //
                       onPressed: (is_selected_class_name && is_selected_class_type)
                           ? () async {
-                              String timestamp = DateTime.now().toIso8601String().replaceAll(RegExp(r'\D'), '');
+                              String token = generate_token();
                               await dio
                                   .post(
                                     '/attendance/enable_qr_scan',
                                     data: FormData.fromMap({
-                                      "code": timestamp.toString(), //
+                                      "code": token, //
                                       "class_name": class_name, //
                                       "class_type": class_type, //
                                     }),
                                   )
                                   .then((response) {
                                     is_enable_scan = true;
-                                    qr = timestamp;
+                                    qr = token;
+                                    debug("Enabled QR: $qr");
                                     setState(() {});
-                                    show_snackbar_message(context: context, message: "QR enabled", color: Colors.green);
+                                    show_snackbar(context: context, message: "QR enabled", color: Colors.green);
                                   })
                                   .catchError((error) {
-                                    show_snackbar_message(context: context, message: "Error", color: Colors.red);
+                                    show_snackbar(context: context, message: "Error", color: Colors.red);
                                   });
                             }
                           : null,
@@ -157,15 +211,18 @@ class QR_Generator_PageState extends State<QR_Generator_Page> {
                       onPressed: (is_selected_class_name && is_selected_class_type)
                           ? () async {
                               await dio
-                                  .post('/attendance/disable_qr_scan')
+                                  .post(
+                                    '/attendance/disable_qr_scan', //
+                                    data: FormData.fromMap({}),
+                                  )
                                   .then((response) {
                                     is_enable_scan = false;
                                     qr = "";
                                     setState(() {});
-                                    show_snackbar_message(context: context, message: "QR disabled", color: Colors.green);
+                                    show_snackbar(context: context, message: "QR disabled", color: Colors.green);
                                   })
                                   .catchError((error) {
-                                    show_snackbar_message(context: context, message: "Error", color: Colors.red);
+                                    show_snackbar(context: context, message: "Error", color: Colors.red);
                                   });
                             }
                           : null,
@@ -356,12 +413,7 @@ class _SearchDialogState<T> extends State<_SearchDialog<T>> {
   }
 }
 
-void pprint(dynamic data) {
-  const encoder = JsonEncoder.withIndent('  ');
-  print(encoder.convert(data));
-}
-
-void show_snackbar_message({
+void show_snackbar({
   required BuildContext context, //
   required String message, //
   required Color color, //

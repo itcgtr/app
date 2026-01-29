@@ -10,9 +10,6 @@ import 'package:gtr_app/utilities/Debug.dart';
 import 'package:gtr_app/routes/Routes.dart';
 import 'package:gtr_app/themes/Theme_Data.dart';
 import 'package:gtr_app/routes/Left_Navigator.dart';
-// import 'package:gtr_app/pages/product/Update_Product.dart';
-// import 'package:gtr_app/pages/profile/Sign_In.dart';
-// import 'package:gtr_app/pages/profile/Update_Data.dart';
 
 void main() {
   runApp(const App());
@@ -58,6 +55,9 @@ class _Profile_PageState extends State<Profile_Page> {
   String? address;
 
   //
+  String? role;
+
+  //
   String? username;
   String? password;
   String? telegram_id;
@@ -79,6 +79,7 @@ class _Profile_PageState extends State<Profile_Page> {
     phone_number = null;
     email = null;
     address = null;
+    role = null;
     //
     username = null;
     password = null;
@@ -104,13 +105,16 @@ class _Profile_PageState extends State<Profile_Page> {
             phone_number = r.data['phone_number'];
             email = r.data['email'];
             address = r.data['address'];
+            role = r.data['role'];
+            debug(role);
             //
             username = r.data['username'];
             password = r.data['password_hash'];
             telegram_id = r.data['telegram_id'];
             profile_image = r.data['profile_image'];
             background_image = r.data['background_image'];
-            debug(background_image!);
+            // debug(background_image!);
+
             setState(() {});
           })
           .catchError((e) {});
@@ -261,6 +265,59 @@ class _Profile_PageState extends State<Profile_Page> {
                           },
                           child: Text('Reset'),
                         ), //
+                      ],
+                    ),
+                  ],
+
+                  // teacher
+                  if (access_token != null && role == 'teacher') ...[
+                    SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(Routes.QR_Generator());
+                          },
+                          child: Text('Check Attendance'),
+                        ), //
+                        //
+                      ],
+                    ),
+                  ],
+
+                  // student
+                  if (access_token != null && (role == null || role == 'student')) ...[
+                    SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () {
+                            Navigator //
+                                .of(context)
+                                .push(Routes.QR_Scan())
+                                .then((output) async {
+                                  if (output != null) {
+                                    await dio
+                                        .post(
+                                          "/attendance/qr_scan",
+                                          data: FormData.fromMap({
+                                            "code": output, //
+                                          }),
+                                        )
+                                        .then((r) {
+                                          show_snackbar(context: context, message: 'Scan Successful', color: Colors.green);
+                                        })
+                                        .catchError((e) {
+                                          show_snackbar(context: context, message: 'Scan Failed: $e', color: Colors.red);
+                                        });
+                                  }
+                                });
+                          },
+                          child: Text('Scan Attendance'),
+                        ), //
+                        //
                       ],
                     ),
                   ],

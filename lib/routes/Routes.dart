@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 
 import 'package:gtr_app/pages/About.dart';
+import 'package:gtr_app/pages/attendance/QR_Generator_Page.dart';
+import 'package:gtr_app/pages/attendance/QR_Scan_Page.dart';
 import 'package:gtr_app/pages/attendance/View_Attendance_Page.dart';
 import 'package:gtr_app/pages/profile/Reset_Page.dart';
 import 'package:gtr_app/pages/profile/Sign_In_Page.dart';
 import 'package:gtr_app/pages/profile/Sign_Up.dart';
 
 class Routes {
+  // anonymous routes
   static Sign_In() => _route(Sign_In_Page());
   static Sign_Up() => _route(Sign_Up_Page());
   static Reset() => _route(Reset_Page());
   static View_Attendance() => _route(View_Attendance_Page());
+  static QR_Scan() => _route(QR_Scan_Page());
+  static QR_Generator() => _route(QR_Generator_Page());
 
   // exposed routes
   static final Map<String, WidgetBuilder> routes = {
