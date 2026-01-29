@@ -36,46 +36,183 @@ class _Left_NavigatorState extends State<Left_Navigator> {
           // Option
           ExpansionTile(
             leading: Icon(Icons.list_alt_outlined),
-            title: Text('Options'),
+            title: Text('Department'),
             children: [
               ListTile(
                 leading: Icon(Icons.school_outlined), //
-                title: Text('Option #1', overflow: TextOverflow.ellipsis, maxLines: 1),
-                onTap: () {},
+                title: Text('Staffs', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Staffs());
+                },
               ),
               ListTile(
                 leading: Icon(Icons.school_outlined), //
-                title: Text('Option #2', overflow: TextOverflow.ellipsis, maxLines: 1),
-                onTap: () {},
+                title: Text('Students', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Students());
+                },
               ),
               ListTile(
                 leading: Icon(Icons.school_outlined), //
-                title: Text('Option #3', overflow: TextOverflow.ellipsis, maxLines: 1),
-                onTap: () {},
+                title: Text('Facilities', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Facilities());
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.school_outlined), //
+                title: Text('Alumni', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Alumni());
+                },
               ),
             ],
           ),
           // Demo
           ExpansionTile(
             leading: Icon(Icons.list_alt_outlined),
-            title: Text('Options'),
+            title: Text('Program'),
             children: [
               ListTile(
                 leading: Icon(Icons.school_outlined), //
-                title: Text('Option #1', overflow: TextOverflow.ellipsis, maxLines: 1),
-                onTap: () {},
+                title: Text('Associat\'s Degree', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Associate_Degree());
+                },
               ),
               ListTile(
                 leading: Icon(Icons.school_outlined), //
-                title: Text('Option #2', overflow: TextOverflow.ellipsis, maxLines: 1),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: Icon(Icons.school_outlined), //
-                title: Text('Option #3', overflow: TextOverflow.ellipsis, maxLines: 1),
-                onTap: () {},
+                title: Text('Engineer\'s Degree', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Engineer_Degree());
+                },
               ),
             ],
+          ),
+          // Demo
+          ExpansionTile(
+            leading: Icon(Icons.list_alt_outlined),
+            title: Text('Project'),
+            children: [
+              ListTile(
+                leading: Icon(Icons.school_outlined), //
+                title: Text('Research Project', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Research_Project());
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.school_outlined), //
+                title: Text('Capacity Building Project', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Capacity_Building_Project());
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.school_outlined), //
+                title: Text('Publication', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Publication());
+                },
+              ),
+            ],
+          ),
+          // Demo
+          ExpansionTile(
+            leading: Icon(Icons.list_alt_outlined),
+            title: Text('Lab & Services'),
+            children: [
+              ListTile(
+                leading: Icon(Icons.school_outlined), //
+                title: Text('Digital Fab Lab', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Digital_Fab_Lab());
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.school_outlined), //
+                title: Text('EMC Lab', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.EMC_Lab());
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.school_outlined), //
+                title: Text('Training', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Training());
+                },
+              ),
+            ],
+          ),
+          // Demo
+          ExpansionTile(
+            leading: Icon(Icons.list_alt_outlined),
+            title: Text('Courses'),
+            children: [
+              ListTile(
+                leading: Icon(Icons.school_outlined), //
+                title: Text('Operating System', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Operating_System());
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.school_outlined), //
+                title: Text('Mobile Application', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Mobile_Application());
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.school_outlined), //
+                title: Text('Object Oriented Programming', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Object_Oriented_Programming());
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.school_outlined), //
+                title: Text('Network Administrator', overflow: TextOverflow.ellipsis, maxLines: 1),
+                onTap: () {
+                  Navigator.of(context).pop(); //
+                  Navigator.of(context).push(Routes.Network_Administrator());
+                },
+              ),
+            ],
+          ),
+
+          ListTile(
+            leading: Icon(Icons.info_outline), //
+            title: Text('Contact Us', overflow: TextOverflow.ellipsis, maxLines: 1),
+            onTap: () {
+              Navigator.of(context).pop(); //
+              Navigator.of(context).push(Routes.Contact_Us());
+            },
+          ),
+
+          ListTile(
+            leading: Icon(Icons.info_outline), //
+            title: Text('Schedule', overflow: TextOverflow.ellipsis, maxLines: 1),
+            onTap: () {
+              Navigator.of(context).pop(); //
+              Navigator.of(context).push(Routes.Schedule());
+            },
           ),
 
           // view attendance
@@ -91,7 +228,7 @@ class _Left_NavigatorState extends State<Left_Navigator> {
           // about us
           ListTile(
             leading: Icon(Icons.info_outline), //
-            title: Text('About Us', overflow: TextOverflow.ellipsis, maxLines: 1),
+            title: Text('Contributors', overflow: TextOverflow.ellipsis, maxLines: 1),
             onTap: () {
               Navigator.pop(context); //
               Navigator.of(context).pushNamed('/about');

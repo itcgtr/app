@@ -71,12 +71,7 @@ class _Home_PageState extends State<Home_Page> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //
-            const Text('More Information', style: TextStyle(fontWeight: FontWeight.bold)),
-            SizedBox(height: 8),
-            const Text('(+855)12 407910'),
-            const Text('infogtr@itc.edu.kh'),
-            const Text('Address: Room J-504, Building J, ITC'),
-            const Text('Facebook Page: facebook.com/itcgtr'),
+            Text('Welcome to GTR App Home Page'), //
           ],
         ),
       ),

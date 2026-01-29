@@ -61,7 +61,7 @@ class _Update_FormState extends State<Update_Form> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text('Edit ${widget.title}')),
+      appBar: AppBar(title: Text('Edit ${widget.title}')),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(8.0),

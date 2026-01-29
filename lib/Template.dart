@@ -43,7 +43,6 @@ class _TemplateState extends State<Template> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text("Template"),
         actions: [
           IconButton(icon: const Icon(Icons.search), onPressed: () {}), //
