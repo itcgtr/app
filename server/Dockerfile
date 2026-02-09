@@ -13,11 +13,11 @@ RUN pip install requests
 
 WORKDIR /server/
 
-COPY . .
+COPY /server/ .
 
 # ENV EXAMPLE="example"
 
 # Use only one CMD instruction; combine echo and python if needed
-CMD echo ${EXAMPLE} && python App.py
+CMD python App.py
 
 
