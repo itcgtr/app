@@ -1,0 +1,69 @@
+import os
+import sys
+
+
+sys.path.append(os.getcwd())
+
+
+from fastapi import *
+from fastapi.responses import *
+from fastapi.staticfiles import *
+from fastapi.middleware.cors import *
+
+from Environment import *
+
+from sources_application.routers import Home
+from sources_application.routers import Contributor
+from sources_application.routers import Credential
+from sources_application.routers import Attendance
+
+from sources_application.routers import Template
+
+
+app = FastAPI(title="GTR Backend API", version="1.0.0", docs_url="/")
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+
+
+app.include_router(Template.router, prefix="/template", tags=["Template"])
+app.include_router(Credential.router, prefix="/credential", tags=["Credential"])
+app.include_router(Contributor.router, prefix="/contributor", tags=["Contributor"])
+app.include_router(Attendance.router, prefix="/attendance", tags=["Attendance"])
+app.include_router(Home.router, prefix="/home", tags=["Home"])
+
+
+if __name__ == "__main__":
+
+    import os
+    import uvicorn
+    import platform
+
+    module_name = os.path.relpath(os.path.abspath(__file__), os.getcwd()).replace("\\", ".").replace("/", ".")[:-3]
+    variable_name = "app"
+
+    if platform.node() == "gtr-server":  # production
+
+        uvicorn.run(
+            f"{module_name}:{variable_name}",
+            host="127.0.0.1",
+            port=8000,
+            workers=4,  # check cpu core: lscpu
+        )
+
+    else:  # development
+
+        import webbrowser
+        from threading import Timer
+
+        def open_browser():
+            webbrowser.open("http://127.0.0.1:8000")
+
+        Timer(1, open_browser).start()
+
+        uvicorn.run(
+            f"{module_name}:{variable_name}",
+            host="127.0.0.1",
+            port=8000,
+            reload=True,
+            reload_includes=["sources_application/**"],
+            reload_excludes=["__pycache__"],
+        )

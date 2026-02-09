@@ -1,0 +1,63 @@
+import os
+import sys
+
+
+sys.path.append(os.getcwd())
+
+
+from fastapi import *
+
+from Environment import *
+
+router = APIRouter()
+
+
+@router.post("/create")
+async def _():
+    try:
+        return True
+    except Exception as e:
+        return Response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@router.post("/read")
+async def _():
+    try:
+        return True
+    except Exception as e:
+        return Response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@router.post("/delete")
+async def _(
+    # id: str = Form(...)
+):
+    try:
+        return True
+    except Exception as e:
+        return Response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@router.post("/update")
+async def _(
+    # id: str = Form(...)
+):
+    try:
+        return True
+    except Exception as e:
+        return Response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@router.post("/upload")
+async def _(
+    # id: str = Form(...)
+    # file: UploadFile = File(...),
+):
+    try:
+        return True
+    except Exception as e:
+        return Response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+if __name__ == "__main__":
+    os.system("python sources_application/Run.py")
