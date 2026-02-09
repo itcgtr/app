@@ -11,9 +11,9 @@ RUN pip install pymongo
 RUN pip install minio
 RUN pip install requests
 
-WORKDIR /server/
+WORKDIR /service/
 
-COPY /server/ .
+COPY server/ .
 
 # ENV EXAMPLE="example"
 

@@ -12,12 +12,12 @@ from fastapi.middleware.cors import *
 
 from Environment import *
 
-from sources_application.routers import Home
-from sources_application.routers import Contributor
-from sources_application.routers import Credential
-from sources_application.routers import Attendance
+from server.routers import Home
+from server.routers import Contributor
+from server.routers import Credential
+from server.routers import Attendance
 
-from sources_application.routers import Template
+from server.routers import Template
 
 
 app = FastAPI(title="GTR Backend API", version="1.0.0", docs_url="/")

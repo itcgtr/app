@@ -4,7 +4,7 @@ RUN python -m pip install --upgrade pip
 
 RUN pip install python-telegram-bot 
 
-WORKDIR /telegram_bot/
+WORKDIR /service/
 
 COPY server/services/telegram_bot/product/ .
 

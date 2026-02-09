@@ -14,9 +14,9 @@ from fastapi.security import *
 
 
 from Environment import *
-from sources_application.utilities.Database import MongoDB
-from sources_application.routers import Credential
-from sources_application.utilities.Debug import debug
+from server.utilities.Database import MongoDB
+from server.routers import Credential
+from server.utilities.Debug import debug
 
 
 router = APIRouter()

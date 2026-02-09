@@ -14,10 +14,10 @@ from bson import ObjectId
 from datetime import datetime
 
 from Environment import *
-from sources_application.utilities.Database import MongoDB
-from sources_application.utilities.Token import Token
-from sources_application.utilities.Storage import Storage
-from sources_application.utilities.Debug import debug
+from server.utilities.Database import MongoDB
+from server.utilities.Token import Token
+from server.utilities.Storage import Storage
+from server.utilities.Debug import debug
 
 router = APIRouter()
 
