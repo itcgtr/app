@@ -3,7 +3,10 @@
 
 .*
 !.gitignore
+!.dockerignore
 
 
 **/z*
 **/z*/
+
+**/Environment_Pro.py

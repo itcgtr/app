@@ -6,8 +6,8 @@ sudo apt install python3-venv python3-pip -y
 ########## __________ ##########
 
 # create and activate a virtual environment
-python3 -m venv .venv_application
-source .venv_application/bin/activate
+python -m venv .venv
+source .venv/bin/activate
 
 # install required python packages
 pip install fastapi[all]
