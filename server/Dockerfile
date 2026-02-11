@@ -1,6 +1,5 @@
 FROM python:3.11-slim
 
-RUN pip install python-telegram-bot 
 
 RUN python -m pip install --upgrade pip
 
@@ -10,14 +9,17 @@ RUN pip install pillow
 RUN pip install pymongo
 RUN pip install minio
 RUN pip install requests
+RUN pip install python-telegram-bot 
+# RUN pip install python-dotenv
 
-WORKDIR /service/
 
-COPY server/ .
+COPY server/ server/
+
+EXPOSE 8000
 
 # ENV EXAMPLE="example"
 
 # Use only one CMD instruction; combine echo and python if needed
-CMD python App.py
+CMD python /server/App.py
 
 

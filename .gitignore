@@ -3,8 +3,9 @@
 
 .*
 !.gitignore
-# !.dockerignore
 
+
+**/product/
 
 **/z*
 **/z*/

@@ -1,3 +1,4 @@
+```sh
 # update and upgrade packages
 apt update && apt upgrade -y
 
@@ -23,7 +24,7 @@ docker images
 docker volume ls
 
 # delete all unused volumes
-docker volume prune -f 
+docker volume prune -f
 
 
 
@@ -49,3 +50,5 @@ docker ps -a
 CONTAINER=gtr_mongodb_stage
 docker stop $CONTAINER
 docker rm -f $CONTAINER
+
+```

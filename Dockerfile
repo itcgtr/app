@@ -14,11 +14,4 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
 
-# docker build -t flutter-web .
-# docker run -d -p 8080:80 flutter-web
-
-
-# CONTAINER=mongodb_dev
-# docker stop $CONTAINER
-# docker rm -f $CONTAINER
 

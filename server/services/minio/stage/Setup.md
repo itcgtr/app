@@ -1,3 +1,4 @@
+```sh
 # update and upgrade packages
 apt update && apt upgrade -y
 
@@ -12,33 +13,30 @@ systemctl enable docker
 systemctl start docker
 
 # pull mongo image
-docker pull mongo:latest
+docker pull minio/minio:latest
+
 
 # list docker images
 docker images
 
 
 
-# list volume
-docker volume ls
-
-# delete all unused volumes
-docker volume prune -f 
 
 
-# run mongo container
-CONTAINER_NAME=gtr_mongodb_product
+
+# run minio container for developer use
+CONTAINER_NAME=gtr_minio_stage
 USERNAME="admin"
-PASSWORD="itcgtr2026"
+PASSWORD="adminadmin"
 docker run -d \
     --restart unless-stopped \
+    -p 9900:9000 \
+    -p 9901:9901 \
     --name $CONTAINER_NAME \
-    -p 27017:27017 \
-    -e MONGO_INITDB_ROOT_USERNAME="$USERNAME" \
-    -e MONGO_INITDB_ROOT_PASSWORD="$PASSWORD" \
-    mongo:latest
-
-
+    -v /mnt/storage/gtr_minio_stage:/data \
+    -e "MINIO_ROOT_USER=$USERNAME" \
+    -e "MINIO_ROOT_PASSWORD=$PASSWORD" \
+    minio/minio server /data --console-address ":9901"
 
 
 
@@ -46,6 +44,10 @@ docker run -d \
 docker ps -a
 
 # [OPTIONAL] delete container (if needed)
-CONTAINER=gtr_mongodb_product
+CONTAINER=gtr_minio_stage
 docker stop $CONTAINER
 docker rm -f $CONTAINER
+
+
+
+```
