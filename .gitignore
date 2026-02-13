@@ -6,11 +6,16 @@
 !.env
 
 
-product/
-
 **/z*
 **/z*/
 
+
+
+# 
+
 server/services/
+__pycache__
+
+# 
 
 Environment_Pro.py
