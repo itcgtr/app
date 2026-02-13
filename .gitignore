@@ -3,6 +3,7 @@
 
 .*
 !.gitignore
+!.env
 
 
 product/
@@ -10,4 +11,6 @@ product/
 **/z*
 **/z*/
 
-**/Environment_Pro.py
+server/services/
+
+Environment_Pro.py

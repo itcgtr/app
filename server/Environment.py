@@ -18,6 +18,7 @@ DATABASE_USERNAME = "admin"
 DATABASE_PASSWORD = "adminadmin"
 DATABASE_NAME = "database"
 DATABASE_URL = f"mongodb://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@{DATABASE_HOST}:{DATABASE_PORT}"
+DATABASE_CONTAINER_NAME = "mongodb_stage"
 
 # ?MinIO configuration for the application
 MINIO_HOST = "127.0.0.1"
@@ -26,6 +27,7 @@ MINIO_USERNAME = "admin"
 MINIO_PASSWORD = "adminadmin"
 BUCKET_PUBLIC = "public"
 MINIO_URL = f"{MINIO_HOST}:{MINIO_PORT}"
+MINIO_CONTAINER_NAME = "minio_stage"
 
 
 # ?Telegram Bot configuration
@@ -42,6 +44,6 @@ MAX_IMAGE_UPLOAD_SIZE = 10 * 1024 * 1024  # 5 MB
 
 # replace with production environment variables
 try:
-    from Environment_Pro import *
+    from server.Environment_Pro import *
 except ImportError:
     pass
