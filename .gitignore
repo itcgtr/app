@@ -3,6 +3,7 @@
 
 .*
 !.gitignore
+!.dockerignore
 !.env
 !.hintrc
 !.metadata
@@ -12,16 +13,17 @@
 **/z*
 **/z*/
 
+# **/product*
 
 
 # 
 
-server/services/
+# server/services/
 __pycache__
 
 # 
 
-Environment_Pro.py
+Environment_*
 
 server/product_terminal.sh
 server/product.sh

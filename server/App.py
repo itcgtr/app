@@ -35,35 +35,26 @@ if __name__ == "__main__":
 
     import os
     import uvicorn
-    import platform
+    import webbrowser
+    from threading import Timer
 
     module_name = os.path.relpath(os.path.abspath(__file__), os.getcwd()).replace("\\", ".").replace("/", ".")[:-3]
     variable_name = "app"
 
-    if platform.node() == "gtr-server":  # production
+    def open_browser():
+        webbrowser.open("http://127.0.0.1:8000")
 
-        uvicorn.run(
-            f"{module_name}:{variable_name}",
-            host="127.0.0.1",
-            port=8000,
-            workers=4,  # check cpu core: lscpu
-        )
+    Timer(1, open_browser).start()
 
-    else:  # development
+    uvicorn.run(
+        f"{module_name}:{variable_name}",
+        host="127.0.0.1",
+        port=8000,
+        reload=True,
+        reload_includes=["server/**"],
+        reload_excludes=["__pycache__"],
+    )
 
-        import webbrowser
-        from threading import Timer
-
-        def open_browser():
-            webbrowser.open("http://127.0.0.1:8000")
-
-        Timer(1, open_browser).start()
-
-        uvicorn.run(
-            f"{module_name}:{variable_name}",
-            host="127.0.0.1",
-            port=8000,
-            reload=True,
-            reload_includes=["server/**"],
-            reload_excludes=["__pycache__"],
-        )
+# deploy cmd
+# For production:
+# uvicorn server.App:app --host 0.0.0.0 --port 8000 --workers 4
