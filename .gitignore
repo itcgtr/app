@@ -26,8 +26,6 @@ __pycache__
 Product.Dockerfile 
 Environment_*
 
-server/product_terminal.sh
-server/product.sh
-
-
+# server/product_terminal.sh
+# server/product.sh
 # docker-compose.yml

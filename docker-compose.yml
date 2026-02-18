@@ -141,3 +141,6 @@ volumes:
   volume_telegram_product:
   volume_backend_product:
   volume_frontend_product:
+
+    # compose status
+    # docker compose -f docker-compose.yml ps
