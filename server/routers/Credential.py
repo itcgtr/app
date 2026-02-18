@@ -94,6 +94,7 @@ async def _(
 
         # validate otp
         telegram_otp = await db.c_credential_signup_otp.find_one({"telegram_id": telegram_id})
+        debug(f"telegram_otp : {telegram_otp}")
 
         # validate telegram_id
         if not telegram_otp:
@@ -134,8 +135,8 @@ async def _(
 ):
     try:
 
-        # debug(f"username : {username}")
-        # debug(f"password : {password}")
+        debug(f"username : {username}")
+        debug(f"password : {password}")
 
         # 1. verify username and password
         data = {

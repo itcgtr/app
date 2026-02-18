@@ -39,3 +39,14 @@ class MongoDB:
     c_template = _db["c_template"]
 
     v_attendance = _db["v_attendance"]
+
+
+if __name__ == "__main__":
+    import asyncio
+
+    async def main():
+        db = MongoDB()
+        data = await db.c_credential.find_one({"username": "muysengly"})
+        print(data)
+
+    asyncio.run(main())

@@ -9,5 +9,3 @@ COPY server/services/telegram_bot/App.py server/services/telegram_bot/App.py
 
 COPY Environment.py Environment.py
 
-
-CMD ["python", "server/services/telegram_bot/App.py"]

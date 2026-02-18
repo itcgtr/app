@@ -8,6 +8,7 @@
 !.hintrc
 !.metadata
 !.flutter-plugins-dependencies
+!.env_product
 
 
 **/z*
@@ -21,9 +22,12 @@
 # server/services/
 __pycache__
 
-# 
-
+#
+Product.Dockerfile 
 Environment_*
 
 server/product_terminal.sh
 server/product.sh
+
+
+# docker-compose.yml

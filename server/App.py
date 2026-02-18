@@ -20,7 +20,7 @@ from server.routers import Attendance
 from server.routers import Template
 
 
-app = FastAPI(title="GTR Backend API", version="1.0.0", docs_url="/")
+app = FastAPI(title=TITLE, version="1.0.0", docs_url="/")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 
