@@ -1,4 +1,14 @@
-```sh
+
+
+
+
+
+
+flutter create . --platforms=web
+
+
+
+
 # enter root user
 sudo su
 
@@ -7,6 +17,7 @@ apt update && apt upgrade -y
 
 # install docker
 apt install docker.io -y
+# snap install docker
 
 
 # configure docker to start on boot
@@ -124,5 +135,3 @@ docker run -it --name $CONTAINER_NAME $CONTAINER_NAME:latest bash
 
 ######################################################################
 
-
-```
