@@ -144,7 +144,19 @@ volumes:
   volume_minio_stage:
 
   volume_mongo_product:
+    driver: local
+    driver_opts:
+      type: none
+      device: /mnt/storage/mongo_product
+      o: bind
   volume_minio_product:
+    driver: local
+    driver_opts:
+      type: none
+      device: /mnt/storage/minio_product
+      o: bind
+
+
 
 
 
