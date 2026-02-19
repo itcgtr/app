@@ -3,28 +3,10 @@
 
 .*
 !.gitignore
-!.dockerignore
-# !.env
-!.hintrc
-!.metadata
-!.flutter-plugins-dependencies
-!.build.py
 
 **/z*
 **/z*/
 
-# **/product*
-
-
 # 
-
-# server/services/
 __pycache__
 
-#
-Product.Dockerfile 
-Environment_*
-
-# server/product_terminal.sh
-# server/product.sh
-# docker-compose.yml
