@@ -75,7 +75,9 @@ services:
 
   # MongoDB Product Service
   mongo_product:
-    image: mongo:latest
+    build:
+      context: .
+      dockerfile: server/services/mongo/Dockerfile
     restart: unless-stopped
     env_file:
       - .env
@@ -89,7 +91,9 @@ services:
 
   # MinIO Product Service
   minio_product:
-    image: minio/minio:latest
+    build:
+      context: .
+      dockerfile: server/services/minio/Dockerfile
     restart: unless-stopped
     env_file:
       - .env
@@ -144,17 +148,17 @@ volumes:
   volume_minio_stage:
 
   volume_mongo_product:
-    driver: local
-    driver_opts:
-      type: none
-      device: /mnt/storage/mongo_product
-      o: bind
+  # driver: local
+  # driver_opts:
+  #   type: none
+  #   device: /mnt/storage/mongo_product
+  #   o: bind
   volume_minio_product:
-    driver: local
-    driver_opts:
-      type: none
-      device: /mnt/storage/minio_product
-      o: bind
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   device: /mnt/storage/minio_product
+    #   o: bind
 
 
 
