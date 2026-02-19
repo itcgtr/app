@@ -387,12 +387,12 @@ async def _(
             old_image_name = user.get("profile_image")
             # # debug(f"old_image_name : {old_image_name}")
             if old_image_name:
-                if s3.object_exists(BUCKET_PUBLIC, old_image_name):
-                    s3.remove_object(BUCKET_PUBLIC, old_image_name)
+                if s3.object_exists(MINIO_BUCKET_PUBLIC, old_image_name):
+                    s3.remove_object(MINIO_BUCKET_PUBLIC, old_image_name)
 
             # *upload new image file
             s3.put_object(
-                bucket_name=BUCKET_PUBLIC,  # bucket name
+                bucket_name=MINIO_BUCKET_PUBLIC,  # bucket name
                 object_name=new_image_name,  # file name in bucket
                 data=BytesIO(content),  # file-like object
                 length=len(content),  # size of the data in bytes
@@ -436,12 +436,12 @@ async def _(
             old_image_name = user.get("background_image")
             # # debug(f"old_image_name : {old_image_name}")
             if old_image_name:
-                if s3.object_exists(BUCKET_PUBLIC, old_image_name):
-                    s3.remove_object(BUCKET_PUBLIC, old_image_name)
+                if s3.object_exists(MINIO_BUCKET_PUBLIC, old_image_name):
+                    s3.remove_object(MINIO_BUCKET_PUBLIC, old_image_name)
 
             # *upload new image file
             s3.put_object(
-                bucket_name=BUCKET_PUBLIC,  # bucket name
+                bucket_name=MINIO_BUCKET_PUBLIC,  # bucket name
                 object_name=new_image_name,  # file name in bucket
                 data=BytesIO(content),  # file-like object
                 length=len(content),  # size of the data in bytes

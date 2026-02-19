@@ -12,16 +12,31 @@ from fastapi.middleware.cors import *
 
 from server.Environment import *
 
+from server.utilities.Storage import Storage
+
 from server.routers import Home
 from server.routers import Contributor
 from server.routers import Credential
 from server.routers import Attendance
-
 from server.routers import Template
 
 
 app = FastAPI(title=TITLE, version="1.0.0", docs_url="/")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+
+s3 = Storage()
+
+policy = f"""{{
+    "Version": "2012-10-17",
+    "Statement": [{{
+        "Effect": "Allow",
+        "Principal": {{"AWS": ["*"]}},
+        "Action": ["s3:GetObject"],
+        "Resource": ["arn:aws:s3:::{MINIO_BUCKET_PUBLIC}/*"]
+    }}]
+}}"""
+
+s3.set_bucket_policy(MINIO_BUCKET_PUBLIC, policy)
 
 
 app.include_router(Credential.router, prefix="/credential", tags=["Credential"])
