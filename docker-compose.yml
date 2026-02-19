@@ -14,12 +14,12 @@ services:
       - .env
     ports:
       - "27017:27017"
-    volumes:
-      - volume_mongo_stage:/data
-      - volume_mongo_stage:/var/log/mongodb
-      - volume_mongo_stage:/etc/mongod.conf
-  
-  # MinIO Stage Service
+    # volumes:
+    #   - /mnt/storage/mongo_stage:/data
+    #   - /mnt/storage/mongo_stage/var/log/mongodb:/var/log/mongodb
+    #   - /mnt/storage/mongo_stage/etc/mongod.conf:/etc/mongod.conf
+
+    # MinIO Stage Service
   minio_stage:
     build:
       context: .
@@ -31,12 +31,12 @@ services:
     ports:
       - "9000:9000"
       - "9001:9001"
-    volumes:
-      - volume_minio_stage:/data
-      - volume_minio_stage:/var/log/minio
-  
-  
-  # Telegram Bot Stage Service
+    # volumes:
+    #   - /mnt/storage/minio_stage/data:/data
+    #   - /mnt/storage/minio_stage/var/log/minio:/var/log/minio
+
+
+    # Telegram Bot Stage Service
   telegram_stage:
     build:
       context: .
@@ -45,8 +45,7 @@ services:
     env_file:
       - .env
     command: [ "python", "server/services/telegram_bot/App.py" ]
-  
-  
+
   # Backend Stage Service
   backend_stage:
     build:
@@ -58,8 +57,7 @@ services:
     command: [ "uvicorn", "server.App:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1" ]
     ports:
       - "8000:8000"
-  
-  
+
   # ? python .build_web.py
   # Frontend Stage Service
   frontend_stage:
@@ -73,8 +71,6 @@ services:
     ports:
       - "80:80"
 
-  
-  
   #################### PRODUCT SERVICE ####################
 
   # MongoDB Product Service
@@ -87,13 +83,12 @@ services:
       - .env
     ports:
       - "27027:27017"
-  # volumes:
-  #   - volume_mongo_product:/data
-  #   - volume_mongo_product:/var/log/mongodb
-  #   - volume_mongo_product:/etc/mongod.conf
+    # volumes:
+    #   - /mnt/storage/mongo_product:/data
+    #   - /mnt/storage/mongo_product/var/log/mongodb:/var/log/mongodb
+    #   - /mnt/storage/mongo_product/etc/mongod.conf:/etc/mongod.conf
 
-
-  # MinIO Product Service
+    # MinIO Product Service
   minio_product:
     build:
       context: .
@@ -105,13 +100,11 @@ services:
     ports:
       - "9900:9000"
       - "9901:9001"
-    volumes:
-      - /mnt/storage/minio_product/data:/data
-      - /mnt/storage/minio_product/var/log/minio:/var/log/minio
+    # volumes:
+    #   - /mnt/storage/minio_product/data:/data
+    #   - /mnt/storage/minio_product/var/log/minio:/var/log/minio
 
-
-
-  # Telegram Bot Product Service
+    # Telegram Bot Product Service
   telegram_product:
     build:
       context: .
@@ -120,7 +113,6 @@ services:
     env_file:
       - .env
     command: [ "python", "server/services/telegram_bot/App.py" ]
-
 
   backend_product:
     build:
@@ -133,7 +125,6 @@ services:
     ports:
       - "8800:8000"
 
-
   # ? python .build_web.py
   frontend_product:
     build:
@@ -145,30 +136,6 @@ services:
     command: [ "nginx", "-g", "daemon off;" ]
     ports:
       - "88:80"
-
-
-volumes:
-  volume_mongo_stage:
-  volume_minio_stage:
-
-  volume_mongo_product:
-  # driver: local
-  # driver_opts:
-  #   type: none
-  #   device: /mnt/storage/mongo_product
-  #   o: bind
-  volume_minio_product:
-    # driver: local
-    # driver_opts:
-    #   type: none
-    #   device: /mnt/storage/minio_product
-    #   o: bind
-
-
-
-
-
-
 
 # compose status
 # docker compose -f docker-compose.yml ps

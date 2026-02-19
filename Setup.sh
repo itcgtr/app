@@ -50,7 +50,7 @@ docker volume prune -f
 
 sudo apt install python3-venv -y
 
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 
 python -m pip install --upgrade pip
