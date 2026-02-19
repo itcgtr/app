@@ -100,7 +100,7 @@ services:
     ports:
       - "9900:9000"
       - "9901:9001"
-    command: server /data --console-address ":9901"
+    command: server /data --console-address ":9001"
     volumes:
       - /mnt/storage/minio_product/data:/data
       - /mnt/storage/minio_product/var/log/minio:/var/log/minio
