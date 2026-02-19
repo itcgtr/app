@@ -6,5 +6,5 @@ RUN pip install python-telegram-bot
 RUN pip install python-dotenv
 
 COPY server/services/telegram_bot/App.py server/services/telegram_bot/App.py
-COPY Environment.py Environment.py
+COPY server/Environment.py server/Environment.py
 

@@ -10,7 +10,7 @@ from fastapi.responses import *
 from fastapi.staticfiles import *
 from fastapi.middleware.cors import *
 
-from Environment import *
+from server.Environment import *
 
 from server.routers import Home
 from server.routers import Contributor
@@ -24,11 +24,11 @@ app = FastAPI(title=TITLE, version="1.0.0", docs_url="/")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 
-app.include_router(Template.router, prefix="/template", tags=["Template"])
 app.include_router(Credential.router, prefix="/credential", tags=["Credential"])
 app.include_router(Contributor.router, prefix="/contributor", tags=["Contributor"])
 app.include_router(Attendance.router, prefix="/attendance", tags=["Attendance"])
 app.include_router(Home.router, prefix="/home", tags=["Home"])
+app.include_router(Template.router, prefix="/template", tags=["Template"])
 
 
 if __name__ == "__main__":

@@ -13,15 +13,15 @@ from bson import json_util
 from bson import ObjectId
 from datetime import datetime
 
-from Environment import *
-from server.utilities.Database import MongoDB
+from server.Environment import *
+from server.utilities.Database import Mongo_DB
 from server.utilities.Token import Token
 from server.utilities.Storage import Storage
 from server.utilities.Debug import debug
 
 router = APIRouter()
 
-db = MongoDB()
+db = Mongo_DB()
 s3 = Storage()
 tk = Token()
 

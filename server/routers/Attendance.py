@@ -13,15 +13,15 @@ from fastapi import *
 from fastapi.security import *
 
 
-from Environment import *
-from server.utilities.Database import MongoDB
+from server.Environment import *
+from server.utilities.Database import Mongo_DB
 from server.routers import Credential
 from server.utilities.Debug import debug
 
 
 router = APIRouter()
 
-db = MongoDB()
+db = Mongo_DB()
 oa = OAuth2PasswordBearer(tokenUrl="credential/signin")
 
 

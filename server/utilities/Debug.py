@@ -1,7 +1,7 @@
 import platform
 from rich import print
 
-from Environment import *
+from server.Environment import *
 
 
 def debug(string: str):

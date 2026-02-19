@@ -13,15 +13,15 @@ from bson import json_util
 from bson import ObjectId
 from datetime import datetime
 
-from Environment import *
-from server.utilities.Database import MongoDB
+from server.Environment import *
+from server.utilities.Database import Mongo_DB
 from server.utilities.Token import Token
 from server.utilities.Storage import Storage
 from server.utilities.Debug import debug
 
 router = APIRouter()
 
-db = MongoDB()
+db = Mongo_DB()
 s3 = Storage()
 tk = Token()
 
@@ -29,6 +29,9 @@ tk = Token()
 @router.post("/create", deprecated=0)
 async def _():
     try:
+        # ! NEED FiX
+        # ! NEED FiX
+
         # Get the last document's index in a single query
         last_document = await db.c_contributor.find({}).sort("order", -1).limit(1).to_list(length=1)
 
@@ -38,6 +41,9 @@ async def _():
         # Ensure the new_index is unique
         while await db.c_contributor.find_one({"order": new_index}):
             new_index += 1
+
+        # ! NEED FiX
+        # ! NEED FiX
 
         # insert new
         await db.c_contributor.insert_one(

@@ -1,20 +1,30 @@
 name: gtr_services
 
 services:
+
+  #################### STAGE SERVICES ####################
+
   # MongoDB Stage Service
   mongo_stage:
-    image: mongo:latest
+    build:
+      context: .
+      dockerfile: server/services/mongo/Dockerfile
     restart: unless-stopped
     environment:
-      - MONGO_INITDB_ROOT_USERNAME="admin"
-      - MONGO_INITDB_ROOT_PASSWORD="adminadmin"
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=adminadmin
     ports:
       - "27017:27017"
-  
+    volumes:
+      - volume_mongo_stage:/data
+      - volume_mongo_stage:/var/log/mongodb
+      - volume_mongo_stage:/etc/mongod.conf
   
   # MinIO Stage Service
   minio_stage:
-    image: minio/minio:latest
+    build:
+      context: .
+      dockerfile: server/services/minio/Dockerfile
     restart: unless-stopped
     environment:
       - MINIO_ROOT_USER=admin
@@ -23,6 +33,9 @@ services:
       - "9000:9000"
       - "9001:9001"
     command: server /data --console-address ":9001"
+    volumes:
+      - volume_minio_stage:/data
+      - volume_minio_stage:/var/log/minio
   
   
   # Telegram Bot Stage Service
@@ -45,6 +58,7 @@ services:
     command: [ "uvicorn", "server.App:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1" ]
   
   
+  # ? python .build_web.py
   # Frontend Stage Service
   frontend_stage:
     build:
@@ -54,9 +68,24 @@ services:
     ports:
       - "80:80"
     command: [ "nginx", "-g", "daemon off;" ]
+
   
   
-  ###############################################################################
+  #################### PRODUCT SERVICE ####################
+
+  # MongoDB Product Service
+  mongo_product:
+    image: mongo:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "27027:27017"
+  # volumes:
+  #   - volume_mongo_product:/data
+  #   - volume_mongo_product:/var/log/mongodb
+  #   - volume_mongo_product:/etc/mongod.conf
+
 
   # MinIO Product Service
   minio_product:
@@ -72,18 +101,7 @@ services:
   #   - volume_minio_product:/data
   #   - volume_minio_product:/var/log/minio
 
-  # MongoDB Product Service
-  mongo_product:
-    image: mongo:latest
-    restart: unless-stopped
-    env_file:
-      - .env
-    ports:
-      - "27027:27017"
-  # volumes:
-  #   - volume_mongo_product:/data
-  #   - volume_mongo_product:/var/log/mongodb
-  #   - volume_mongo_product:/etc/mongod.conf
+
 
   # Telegram Bot Product Service
   telegram_product:
@@ -94,9 +112,7 @@ services:
     env_file:
       - .env
     command: [ "python", "server/services/telegram_bot/App.py" ]
-  # volumes:
-  #   - volume_telegram_product:/app
-  #   - volume_telegram_product:/var/log/telegram
+
 
   backend_product:
     build:
@@ -108,10 +124,9 @@ services:
     ports:
       - "8800:8000"
     command: [ "uvicorn", "server.App:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4" ]
-  # volumes:
-  #   - volume_backend_product:/app
-  #   - volume_backend_product:/var/log/backend
 
+
+  # ? python .build_web.py
   frontend_product:
     build:
       context: .
@@ -122,9 +137,14 @@ services:
     ports:
       - "88:80"
     command: [ "nginx", "-g", "daemon off;" ]
-    # volumes:
-    #   - volume_frontend_product:/usr/share/nginx/html
-    #   - volume_frontend_product:/var/log/nginx
+
+
+volumes:
+  volume_mongo_stage:
+  volume_minio_stage:
+
+  volume_mongo_product:
+  volume_minio_product:
 
 
 

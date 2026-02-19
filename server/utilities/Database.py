@@ -6,46 +6,47 @@ sys.path.append(os.getcwd())
 from pymongo import AsyncMongoClient
 from typing import *
 
-from Environment import *
+from server.Environment import *
 
 
-class MongoDB:
+class Mongo_DB:
 
-    _client = AsyncMongoClient(
-        DATABASE_URL,
+    async def list_collection_names(self):
+        return await self.db.list_collection_names()
+
+    client = AsyncMongoClient(
+        MONGO_URL,
         connectTimeoutMS=5000,  # 5 second
         serverSelectionTimeoutMS=5000,  # 5 second
     )
-    _db = _client["database"]
 
-    async def list_collection_names(self):
-        return await self._db.list_collection_names()
+    db = client[MONGO_DATABASE]
 
-    c_credential = _db["c_credential"]
-    c_credential_reset_otp = _db["c_credential_reset_otp"]
-    c_credential_signup_otp = _db["c_credential_signup_otp"]
+    c_credential = db["c_credential"]
+    c_credential_reset_otp = db["c_credential_reset_otp"]
+    c_credential_signup_otp = db["c_credential_signup_otp"]
 
-    c_attendance = _db["c_attendance"]
-    c_attendance_code = _db["c_attendance_code"]
+    c_attendance = db["c_attendance"]
+    c_attendance_code = db["c_attendance_code"]
 
-    c_class_name = _db["c_class_name"]
+    c_class_name = db["c_class_name"]
 
-    c_class_type = _db["c_class_type"]
+    c_class_type = db["c_class_type"]
 
-    c_contributor = _db["c_contributor"]
+    c_contributor = db["c_contributor"]
 
-    c_counter = _db["c_counter"]
+    c_counter = db["c_counter"]
 
-    c_template = _db["c_template"]
+    c_template = db["c_template"]
 
-    v_attendance = _db["v_attendance"]
+    v_attendance = db["v_attendance"]
 
 
 if __name__ == "__main__":
     import asyncio
 
     async def main():
-        db = MongoDB()
+        db = Mongo_DB()
         data = await db.c_credential.find_one({"username": "muysengly"})
         print(data)
 
