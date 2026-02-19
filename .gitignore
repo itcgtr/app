@@ -4,7 +4,7 @@
 .*
 !.gitignore
 !.dockerignore
-!.env
+# !.env
 !.hintrc
 !.metadata
 !.flutter-plugins-dependencies

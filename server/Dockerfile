@@ -10,6 +10,7 @@ RUN pip install pymongo
 RUN pip install minio
 RUN pip install requests
 RUN pip install python-telegram-bot
+RUN pip install python-dotenv
 
 
 COPY server/ server/

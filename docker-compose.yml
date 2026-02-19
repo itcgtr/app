@@ -3,144 +3,132 @@ name: gtr_services
 services:
   # MongoDB Stage Service
   mongo_stage:
-    build:
-      context: .
-      dockerfile: server/services/mongodb/Stage.Dockerfile
+    image: mongo:latest
     restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME="admin"
+      - MONGO_INITDB_ROOT_PASSWORD="adminadmin"
     ports:
-      - "27027:27017"
-    volumes:
-      - volume_mongo_stage:/data
-      - volume_mongo_stage:/var/log/mongodb
-      - volume_mongo_stage:/etc/mongod.conf
-
+      - "27017:27017"
+  
+  
   # MinIO Stage Service
   minio_stage:
-    build:
-      context: .
-      dockerfile: server/services/minio/Stage.Dockerfile
+    image: minio/minio:latest
     restart: unless-stopped
-    volumes:
-      - volume_minio_stage:/data
-      - volume_minio_stage:/var/log/minio
-    ports:
-      - "9900:9900"
-      - "9901:9901"
-    command: server /data --console-address ":9901"
-
-  # Telegram Bot Stage Service
-  telegram_stage:
-    build:
-      context: .
-      dockerfile: server/services/telegram_bot/Stage.Dockerfile
-    restart: unless-stopped
-    volumes:
-      - volume_telegram_stage:/app
-      - volume_telegram_stage:/var/log/telegram
-    command: [ "python", "server/services/telegram_bot/App.py" ]
-
-  # MongoDB Stage Service
-  backend_stage:
-    build:
-      context: .
-      dockerfile: server/Stage.Dockerfile
-    restart: unless-stopped
-    volumes:
-      - volume_backend_stage:/app
-      - volume_backend_stage:/var/log/backend
-    ports:
-      - "8800:8000"
-    command: [ "uvicorn", "server.App:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1" ]
-
-  # Frontend Stage Service
-  frontend_stage:
-    build:
-      context: .
-      dockerfile: Stage.Dockerfile
-    restart: unless-stopped
-    volumes:
-      - volume_frontend_stage:/usr/share/nginx/html
-      - volume_frontend_stage:/var/log/nginx
-    ports:
-      - "88:80"
-    command: [ "nginx", "-g", "daemon off;" ]
-
-  ###############################################################################
-
-  # MinIO Product Service
-  minio_product:
-    build:
-      context: .
-      dockerfile: server/services/minio/Product.Dockerfile
-    restart: unless-stopped
-    volumes:
-      - volume_minio_product:/data
-      - volume_minio_product:/var/log/minio
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=adminadmin
     ports:
       - "9000:9000"
       - "9001:9001"
     command: server /data --console-address ":9001"
+  
+  
+  # Telegram Bot Stage Service
+  telegram_stage:
+    build:
+      context: .
+      dockerfile: server/services/telegram_bot/Dockerfile
+    restart: unless-stopped
+    command: [ "python", "server/services/telegram_bot/App.py" ]
+  
+  
+  # Backend Stage Service
+  backend_stage:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    command: [ "uvicorn", "server.App:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1" ]
+  
+  
+  # Frontend Stage Service
+  frontend_stage:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    command: [ "nginx", "-g", "daemon off;" ]
+  
+  
+  ###############################################################################
+
+  # MinIO Product Service
+  minio_product:
+    image: minio/minio:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "9900:9000"
+      - "9901:9001"
+    command: server /data --console-address ":9901"
+  # volumes:
+  #   - volume_minio_product:/data
+  #   - volume_minio_product:/var/log/minio
 
   # MongoDB Product Service
   mongo_product:
-    build:
-      context: .
-      dockerfile: server/services/mongodb/Product.Dockerfile
+    image: mongo:latest
     restart: unless-stopped
+    env_file:
+      - .env
     ports:
-      - "27017:27017"
-    volumes:
-      - volume_mongo_product:/data
-      - volume_mongo_product:/var/log/mongodb
-      - volume_mongo_product:/etc/mongod.conf
+      - "27027:27017"
+  # volumes:
+  #   - volume_mongo_product:/data
+  #   - volume_mongo_product:/var/log/mongodb
+  #   - volume_mongo_product:/etc/mongod.conf
 
   # Telegram Bot Product Service
   telegram_product:
     build:
       context: .
-      dockerfile: server/services/telegram_bot/Product.Dockerfile
+      dockerfile: server/services/telegram_bot/Dockerfile
     restart: unless-stopped
-    volumes:
-      - volume_telegram_product:/app
-      - volume_telegram_product:/var/log/telegram
+    env_file:
+      - .env
     command: [ "python", "server/services/telegram_bot/App.py" ]
+  # volumes:
+  #   - volume_telegram_product:/app
+  #   - volume_telegram_product:/var/log/telegram
 
   backend_product:
     build:
       context: .
-      dockerfile: server/Product.Dockerfile
+      dockerfile: server/Dockerfile
     restart: unless-stopped
-    volumes:
-      - volume_backend_product:/app
-      - volume_backend_product:/var/log/backend
+    env_file:
+      - .env
     ports:
-      - "8000:8000"
+      - "8800:8000"
     command: [ "uvicorn", "server.App:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4" ]
+  # volumes:
+  #   - volume_backend_product:/app
+  #   - volume_backend_product:/var/log/backend
 
   frontend_product:
     build:
       context: .
-      dockerfile: Product.Dockerfile
+      dockerfile: Dockerfile
     restart: unless-stopped
-    volumes:
-      - volume_frontend_product:/usr/share/nginx/html
-      - volume_frontend_product:/var/log/nginx
+    env_file:
+      - .env
     ports:
       - "88:80"
     command: [ "nginx", "-g", "daemon off;" ]
+    # volumes:
+    #   - volume_frontend_product:/usr/share/nginx/html
+    #   - volume_frontend_product:/var/log/nginx
 
-volumes:
-  volume_mongo_stage:
-  volume_minio_stage:
-  volume_telegram_stage:
-  volume_backend_stage:
-  volume_frontend_stage:
 
-  volume_mongo_product:
-  volume_minio_product:
-  volume_telegram_product:
-  volume_backend_product:
-  volume_frontend_product:
 
-    # compose status
-    # docker compose -f docker-compose.yml ps
+
+
+# compose status
+# docker compose -f docker-compose.yml ps
