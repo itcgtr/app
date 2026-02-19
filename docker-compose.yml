@@ -101,9 +101,9 @@ services:
       - "9900:9000"
       - "9901:9001"
     command: server /data --console-address ":9901"
-  # volumes:
-  #   - volume_minio_product:/data
-  #   - volume_minio_product:/var/log/minio
+    volumes:
+      - /mnt/storage/minio_product/data:/data
+      - /mnt/storage/minio_product/var/log/minio:/var/log/minio
 
 
 
