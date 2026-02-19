@@ -22,9 +22,6 @@ MONGO_URL = f"mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_HOST}:{MONGO_PO
 # DATABASE_CONTAINER_NAME = "mongodb_stage"
 
 # ?MinIO configuration for the application
-# MINIO_HOST = "127.0.0.1"
-
-
 MINIO_HOST = os.getenv("MINIO_HOST", "minio_stage") if os.path.isfile("/.dockerenv") else "127.0.0.1"
 MINIO_PORT = 9000
 MINIO_CONSOLE_PORT = 9001
