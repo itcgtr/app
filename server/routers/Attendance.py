@@ -44,8 +44,8 @@ async def _(
             return Response(status_code=status.HTTP_401_UNAUTHORIZED)
 
         # check if the user is a teacher
-        if user.get("role") != "teacher":
-            return Response(status_code=status.HTTP_403_FORBIDDEN)
+        # if not user.get("is_teacher"):
+        #     return Response(status_code=status.HTTP_403_FORBIDDEN)
 
         # check if class_name exists
         class_info = await db.c_class_name.find_one({"class_name": class_name})
@@ -99,8 +99,8 @@ async def _(
             return Response(status_code=status.HTTP_401_UNAUTHORIZED)
 
         # check if the user is a teacher
-        if user.get("role") != "teacher":
-            return Response(status_code=status.HTTP_403_FORBIDDEN)
+        # if not user.get("is_teacher"):
+        #     return Response(status_code=status.HTTP_403_FORBIDDEN)
 
         await db.c_attendance_code.delete_many({"user_id": user["_id"]})
 
