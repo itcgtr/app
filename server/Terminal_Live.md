@@ -3,7 +3,7 @@
 ```sh
 
 # ssh to server
-# ssh root@gtr-server
+ssh root@gtr-server
 
 
 # cd to project directory

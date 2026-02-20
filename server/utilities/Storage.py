@@ -26,3 +26,32 @@ class Storage(Minio):
             return True
         except Exception:
             return False
+
+
+s3 = Storage()
+
+
+# create bucket
+if not s3.bucket_exists(MINIO_BUCKET_PUBLIC):
+    # create bucket
+    s3.make_bucket(MINIO_BUCKET_PUBLIC)
+
+    # set bucket policy for public read-only access
+    policy = f"""{{
+        "Version": "2012-10-17",
+        "Statement": [
+            {{
+                "Effect": "Allow",
+                "Principal": {{"AWS": ["*"]}},
+                "Action": ["s3:GetObject"],
+                "Resource": ["arn:aws:s3:::{MINIO_BUCKET_PUBLIC}/*"]
+            }},
+            {{
+                "Effect": "Allow",
+                "Principal": {{"AWS": ["*"]}},
+                "Action": ["s3:ListBucket"],
+                "Resource": ["arn:aws:s3:::{MINIO_BUCKET_PUBLIC}"]
+            }}
+        ]
+    }}"""
+    s3.set_bucket_policy(MINIO_BUCKET_PUBLIC, policy)
