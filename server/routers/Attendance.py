@@ -4,10 +4,10 @@ import sys
 
 sys.path.append(os.getcwd())
 
+
 import json
 from bson import json_util
 from datetime import datetime
-
 
 from fastapi import *
 from fastapi.security import *
@@ -15,8 +15,10 @@ from fastapi.security import *
 
 from server.Environment import *
 from server.utilities.Database import Mongo_DB
+from server.utilities.Debug import Debug
 from server.routers import Credential
-from server.utilities.Debug import debug
+
+# from server.utilities.Debug import debug
 
 
 router = APIRouter()
@@ -201,4 +203,4 @@ async def _():
 
 
 if __name__ == "__main__":
-    os.system("python sources_application/Run.py")
+    os.system("python server/App.py")

@@ -3,6 +3,9 @@ import sys
 
 sys.path.append(os.getcwd())
 
+from server.utilities.Debug import Debug
+
+
 from pymongo import AsyncMongoClient
 from typing import *
 

@@ -10,8 +10,9 @@ services:
       context: .
       dockerfile: server/services/mongo/Dockerfile
     restart: unless-stopped
-    env_file:
-      - .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=adminadmin
     ports:
       - "27017:27017"
     # volumes:
@@ -25,8 +26,9 @@ services:
       context: .
       dockerfile: server/services/minio/Dockerfile
     restart: unless-stopped
-    env_file:
-      - .env
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=adminadmin
     command: server /data --console-address ":9001"
     ports:
       - "9000:9000"
@@ -42,8 +44,8 @@ services:
       context: .
       dockerfile: server/services/telegram_bot/Dockerfile
     restart: unless-stopped
-    env_file:
-      - .env
+    environment:
+      - BOT_TOKEN=8209910932:AAEYZtLY8sk_X8kfILfyfGeT_Lyaz5Z9hM4
     command: [ "python", "server/services/telegram_bot/App.py" ]
 
   # Backend Stage Service
@@ -52,8 +54,6 @@ services:
       context: .
       dockerfile: server/Dockerfile
     restart: unless-stopped
-    env_file:
-      - .env
     command: [ "uvicorn", "server.App:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1" ]
     ports:
       - "8000:8000"
@@ -65,8 +65,6 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
-    env_file:
-      - .env
     command: [ "nginx", "-g", "daemon off;" ]
     ports:
       - "80:80"
@@ -119,8 +117,6 @@ services:
       context: .
       dockerfile: server/Dockerfile
     restart: unless-stopped
-    env_file:
-      - .env
     command: [ "uvicorn", "server.App:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4" ]
     ports:
       - "8800:8000"
@@ -131,11 +127,9 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
-    env_file:
-      - .env
     command: [ "nginx", "-g", "daemon off;" ]
     ports:
       - "88:80"
-
-# compose status
-# docker compose -f docker-compose.yml ps
+  # Add any additional services here
+  # compose status
+  # docker compose -f docker-compose.yml ps

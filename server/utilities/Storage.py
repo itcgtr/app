@@ -3,6 +3,9 @@ import sys
 
 sys.path.append(os.getcwd())
 
+from server.utilities.Debug import Debug
+
+
 from minio import Minio
 
 from server.Environment import *
@@ -12,8 +15,8 @@ class Storage(Minio):
     def __init__(self):
         super().__init__(
             endpoint=MINIO_URL,
-            access_key=MINIO_USERNAME,
-            secret_key=MINIO_PASSWORD,
+            access_key=MINIO_ROOT_USER,
+            secret_key=MINIO_ROOT_PASSWORD,
             secure=False,
         )
 

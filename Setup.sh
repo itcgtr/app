@@ -1,8 +1,35 @@
 
+#################### FOR WINDOWS SETUP ####################
+
+python -m venv .venv
+.venv\Scripts\activate
+
+python -m pip install --upgrade pip
+
+# dependencies
+pip install fastapi[all]
+pip install uvicorn
+pip install pillow
+pip install pymongo
+pip install minio
+pip install requests
+pip install python-telegram-bot
+
+# development dependencies
+pip install jupyter
+pip install ipdb
+
+# end
 
 
 
 
+flutter create . --platforms=web
+
+#################### ---------- ####################
+
+
+#################### FOR LINUX SETUP ####################
 
 flutter create . --platforms=web
 
@@ -66,13 +93,17 @@ pip install python-telegram-bot
 
 # development dependencies
 pip install jupyter
+pip install ipdb
 
 # end
 
 
 
 
-###########################################
+#################### ---------- ####################
+
+
+#################### FOR DOCKER MANAGEMENT ####################
 
 
 # run mongo container
@@ -103,7 +134,7 @@ docker rm -f $CONTAINER
 
 
 
-######################################################################
+
 
 # pull ubuntu latest image
 docker pull ubuntu:latest
@@ -133,5 +164,6 @@ docker load -i $CONTAINER_NAME.tar
 CONTAINER_NAME=minio_product
 docker run -it --name $CONTAINER_NAME $CONTAINER_NAME:latest bash
 
-######################################################################
+
+#################### ---------- ####################
 

@@ -4,8 +4,10 @@ import sys
 
 sys.path.append(os.getcwd())
 
+
 from typing import *
 from fastapi import *
+
 
 import json
 from io import BytesIO
@@ -17,7 +19,9 @@ from server.Environment import *
 from server.utilities.Database import Mongo_DB
 from server.utilities.Token import Token
 from server.utilities.Storage import Storage
-from server.utilities.Debug import debug
+from server.utilities.Debug import Debug
+
+# from server.utilities.Debug import debug
 
 router = APIRouter()
 
@@ -302,4 +306,4 @@ async def _(
 
 
 if __name__ == "__main__":
-    os.system("python sources_application/Run.py")
+    os.system("python server/App.py")

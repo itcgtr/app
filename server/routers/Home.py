@@ -8,6 +8,8 @@ sys.path.append(os.getcwd())
 from fastapi import *
 
 from server.Environment import *
+from server.utilities.Debug import Debug
+
 
 router = APIRouter()
 
@@ -15,7 +17,13 @@ router = APIRouter()
 @router.post("/create")
 async def _():
     try:
-        return True
+        x = 5
+        y = x + 10
+        z = y * 2
+
+        Debug.debug()
+
+        return 1
     except Exception as e:
         return Response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -60,4 +68,4 @@ async def _(
 
 
 if __name__ == "__main__":
-    os.system("python sources_application/Run.py")
+    os.system("python server/App.py")
