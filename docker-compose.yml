@@ -19,7 +19,7 @@ services:
       - /mnt/storage/mongo_stage:/data
       - /mnt/storage/mongo_stage/var/log/mongodb:/var/log/mongodb
       - /mnt/storage/mongo_stage/etc/mongod.conf:/etc/mongod.conf
-    # MinIO Stage Service
+  # MinIO Stage Service
   minio_stage:
     build:
       context: .
@@ -34,7 +34,8 @@ services:
     volumes:
       - /mnt/storage/minio_stage/data:/data
       - /mnt/storage/minio_stage/var/log/minio:/var/log/minio
-    # Telegram Bot Stage Service
+
+  # Telegram Bot Stage Service
   telegram_stage:
     build:
       context: .
@@ -42,25 +43,6 @@ services:
     restart: unless-stopped
     environment:
       - BOT_TOKEN=8209910932:AAEYZtLY8sk_X8kfILfyfGeT_Lyaz5Z9hM4
-
-  # Backend Stage Service
-  # backend_stage:
-  #   build:
-  #     context: .
-  #     dockerfile: server/Dockerfile
-  #   restart: unless-stopped
-  #   ports:
-  #     - "8000:8000"
-
-  # # ? python .build_web.py
-  # # Frontend Stage Service
-  # frontend_stage:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   restart: unless-stopped
-  #   ports:
-  #     - "80:80"
 
   #################### PRODUCT SERVICE ####################
 
@@ -78,7 +60,7 @@ services:
       - /mnt/storage/mongo_product:/data
       - /mnt/storage/mongo_product/var/log/mongodb:/var/log/mongodb
       - /mnt/storage/mongo_product/etc/mongod.conf:/etc/mongod.conf
-    # MinIO Product Service
+  # MinIO Product Service
   minio_product:
     build:
       context: .
@@ -86,14 +68,13 @@ services:
     restart: unless-stopped
     env_file:
       - .env
-    command: server /data --console-address ":9001"
     ports:
       - "9900:9000"
       - "9901:9001"
     volumes:
       - /mnt/storage/minio_product/data:/data
       - /mnt/storage/minio_product/var/log/minio:/var/log/minio
-    # Telegram Bot Product Service
+  # Telegram Bot Product Service
   telegram_product:
     build:
       context: .
@@ -101,22 +82,3 @@ services:
     restart: unless-stopped
     env_file:
       - .env
-  # backend_product:
-  #   build:
-  #     context: .
-  #     dockerfile: server/Dockerfile
-  #   restart: unless-stopped
-  #   ports:
-  #     - "8800:8000"
-
-  # # ? python .build_web.py
-  # frontend_product:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   restart: unless-stopped
-  #   ports:
-  #     - "88:80"
-  # Add any additional services here
-  # compose status
-  # docker compose -f docker-compose.yml ps
