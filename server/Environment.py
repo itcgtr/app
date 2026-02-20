@@ -9,7 +9,7 @@ from server.utilities.Debug import Debug
 from dotenv import load_dotenv
 
 # ? load environment variables
-load_dotenv(".env", override=True)
+load_dotenv(".env")
 
 
 # ? General configuration for the application
