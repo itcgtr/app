@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Start MinIO in the background
-minio server --address 127.0.0.1:9000 --console-address 127.0.0.1:9001 /data &
+minio server /data --console-address :9001 &
 MINIO_PID=$!
 
 # Wait for MinIO to be ready
@@ -10,7 +10,7 @@ sleep 10
 
 # Set up MinIO alias with credentials
 echo "Setting up MinIO alias..."
-mc alias set local http://127.0.0.1:9000 $MINIO_ROOT_USER $MINIO_ROOT_PASSWORD
+mc alias set local http://localhost:9000 $MINIO_ROOT_USER $MINIO_ROOT_PASSWORD
 
 # List buckets
 echo "Listing existing buckets..."
