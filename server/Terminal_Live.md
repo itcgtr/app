@@ -11,7 +11,8 @@ cd /root/gtr_app
 
 
 # github pull
-git pull origin main
+git pull
+# git pull origin main
 
 
 # live log
