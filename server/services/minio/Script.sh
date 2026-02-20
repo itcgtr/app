@@ -27,32 +27,3 @@ mc anonymous set public local/public
 # Keep MinIO running
 echo "MinIO is ready. Keeping container running..."
 wait $MINIO_PID
-
-
-
-
-
-
-# echo "This is a script to interact with MinIO using the mc client."
-
-# echo $MINIO_ROOT_USER
-
-# echo $MINIO_ROOT_PASSWORD
-
-
-# login to minio
-# mc alias set local http://localhost:9000 $MINIO_ROOT_USER $MINIO_ROOT_PASSWORD
-
-# list buckets
-# mc ls local
-
-# create a bucket
-# mc mb local/public
-
-# setup a bucket policy
-# mc anonymous set public local/public
-
-
-
-# delete a bucket
-# mc rb local/public
