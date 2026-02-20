@@ -3,7 +3,7 @@
 
 # create systemd service file for gtr_backend
 SERVICE_NAME=gtr_backend
-WORKING_DIR=/home/msl/gtr_backend
+WORKING_DIR=/home/gtr/gtr_app
 
 cat <<EOF | sudo tee /etc/systemd/system/${SERVICE_NAME}.service > /dev/null
 [Unit]
@@ -81,7 +81,7 @@ journalctl -u ${SERVICE_NAME} -o short-iso
 
 
 # save log to file
-WORKING_DIR=/home/msl/gtr_backend
+WORKING_DIR=/home/gtr/gtr_app
 sudo mkdir -p ${WORKING_DIR}/logs
 sudo touch ${WORKING_DIR}/logs/service.log
 sudo journalctl -u ${SERVICE_NAME} -n 10000 -o short-iso > ${WORKING_DIR}/logs/service.log
