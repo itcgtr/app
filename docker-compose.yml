@@ -47,23 +47,23 @@ services:
       - BOT_TOKEN=8209910932:AAEYZtLY8sk_X8kfILfyfGeT_Lyaz5Z9hM4
 
   # Backend Stage Service
-  backend_stage:
-    build:
-      context: .
-      dockerfile: server/Dockerfile
-    restart: unless-stopped
-    ports:
-      - "8000:8000"
+  # backend_stage:
+  #   build:
+  #     context: .
+  #     dockerfile: server/Dockerfile
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8000:8000"
 
-  # ? python .build_web.py
-  # Frontend Stage Service
-  frontend_stage:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - "80:80"
+  # # ? python .build_web.py
+  # # Frontend Stage Service
+  # frontend_stage:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
 
   #################### PRODUCT SERVICE ####################
 
@@ -106,23 +106,22 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+  # backend_product:
+  #   build:
+  #     context: .
+  #     dockerfile: server/Dockerfile
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8800:8000"
 
-  backend_product:
-    build:
-      context: .
-      dockerfile: server/Dockerfile
-    restart: unless-stopped
-    ports:
-      - "8800:8000"
-
-  # ? python .build_web.py
-  frontend_product:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - "88:80"
+  # # ? python .build_web.py
+  # frontend_product:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   restart: unless-stopped
+  #   ports:
+  #     - "88:80"
   # Add any additional services here
   # compose status
   # docker compose -f docker-compose.yml ps
