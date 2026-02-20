@@ -18,7 +18,7 @@ TITLE = os.getenv("TITLE", "GTR Application Stage")
 
 # ? Database configuration for the application
 MONGO_HOST = "gtr-server" if not os.path.isfile("/.dockerenv") else os.getenv("MONGO_HOST", "mongo_stage")
-MONGO_PORT = os.getenv("MONGO_PORT", "27017")
+MONGO_PORT = os.getenv("MONGO_PORT", "27027")
 MONGO_INITDB_ROOT_USERNAME = os.getenv("MONGO_INITDB_ROOT_USERNAME", "admin")
 MONGO_INITDB_ROOT_PASSWORD = os.getenv("MONGO_INITDB_ROOT_PASSWORD", "adminadmin")
 MONGO_DATABASE = "database"
@@ -27,8 +27,8 @@ MONGO_URL = f"mongodb://{MONGO_INITDB_ROOT_USERNAME}:{MONGO_INITDB_ROOT_PASSWORD
 
 # ? MinIO configuration for the application
 MINIO_HOST = "gtr-server" if not os.path.isfile("/.dockerenv") else os.getenv("MINIO_HOST", "minio_stage")
-MINIO_PORT = os.getenv("MINIO_PORT", "9000")
-MINIO_CONSOLE_PORT = os.getenv("MINIO_CONSOLE_PORT", "9001")
+MINIO_PORT = os.getenv("MINIO_PORT", "9900")
+MINIO_CONSOLE_PORT = os.getenv("MINIO_CONSOLE_PORT", "9901")
 MINIO_ROOT_USER = os.getenv("MINIO_ROOT_USER", "admin")
 MINIO_ROOT_PASSWORD = os.getenv("MINIO_ROOT_PASSWORD", "adminadmin")
 MINIO_BUCKET_PUBLIC = "public"
