@@ -14,7 +14,7 @@ After=network.target
 User=root
 Type=simple
 WorkingDirectory=${WORKING_DIR}
-ExecStart=/bin/bash -c 'source ${WORKING_DIR}/.venv/bin/activate && python server/App.py'
+ExecStart=/bin/bash -c 'source ${WORKING_DIR}/.venv/bin/activate && uvicorn server.App:app --host 127.0.0.1 --port 8800 --workers 4'
 StandardOutput=journal
 StandardError=journal
 Restart=always
@@ -24,6 +24,8 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 
+
+# uvicorn server.App:app --host 127.0.0.1 --port 8800 --workers 4
 
 # start systemd
 SERVICE_NAME=gtr_backend
@@ -47,7 +49,7 @@ sudo systemctl status ${SERVICE_NAME}.service
 
 
 # [OPTIONAL] remove service
-SERVICE_NAME=service_gtr_app
+SERVICE_NAME=gtr_homework
 sudo rm -rf /etc/systemd/system/${SERVICE_NAME}.service
 sudo systemctl daemon-reload
 
