@@ -14,11 +14,13 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=adminadmin
     ports:
-      - "27017:27017"
+      - "27027:27017"
     volumes:
       - /mnt/storage/mongo_stage:/data
       - /mnt/storage/mongo_stage/var/log/mongodb:/var/log/mongodb
       - /mnt/storage/mongo_stage/etc/mongod.conf:/etc/mongod.conf
+  
+  
   # MinIO Stage Service
   minio_stage:
     build:
@@ -29,12 +31,13 @@ services:
       - MINIO_ROOT_USER=admin
       - MINIO_ROOT_PASSWORD=adminadmin
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "9900:9000"
+      - "9901:9001"
     volumes:
       - /mnt/storage/minio_stage/data:/data
       - /mnt/storage/minio_stage/var/log/minio:/var/log/minio
 
+  
   # Telegram Bot Stage Service
   telegram_stage:
     build:
@@ -55,11 +58,13 @@ services:
     env_file:
       - .env
     ports:
-      - "27027:27017"
+      - "27017:27017"
     volumes:
       - /mnt/storage/mongo_product:/data
       - /mnt/storage/mongo_product/var/log/mongodb:/var/log/mongodb
       - /mnt/storage/mongo_product/etc/mongod.conf:/etc/mongod.conf
+  
+  
   # MinIO Product Service
   minio_product:
     build:
@@ -69,11 +74,13 @@ services:
     env_file:
       - .env
     ports:
-      - "9900:9000"
-      - "9901:9001"
+      - "9000:9000"
+      - "9001:9001"
     volumes:
       - /mnt/storage/minio_product/data:/data
       - /mnt/storage/minio_product/var/log/minio:/var/log/minio
+  
+  
   # Telegram Bot Product Service
   telegram_product:
     build:
