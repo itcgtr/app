@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Start MinIO in the background
-minio server /data --console-address :9001 &
+minio server --address 0.0.0.0:9000 --console-address 0.0.0.0:9001 /data &
 MINIO_PID=$!
 
 # Wait for MinIO to be ready
