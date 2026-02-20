@@ -89848,7 +89848,7 @@ break
 case 2:p=A.aMW()
 o=t.z
 s=4
-return A.r(n.y.cR("/attendance/enable_qr_scan",A.cE(A.a9(["code",p,"class_name",n.e,"class_type",n.f],t.N,o)),o).au(new A.agy(n,p),t.P).cg(new A.agz(n)),$async$$0)
+return A.r(n.y.cR("/attendance/enable_qr_scan",A.cE(A.a9(["class_name",n.e,"class_type",n.f,"code",p],t.N,o)),o).au(new A.agy(n,p),t.P).cg(new A.agz(n)),$async$$0)
 case 4:case 3:n.a_S()
 return A.u(null,r)}})
 return A.v($async$$0,r)},

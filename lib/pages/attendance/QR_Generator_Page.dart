@@ -79,9 +79,9 @@ class QR_Generator_PageState extends State<QR_Generator_Page> {
             .post(
               '/attendance/enable_qr_scan',
               data: FormData.fromMap({
-                "code": token, //
                 "class_name": class_name, //
                 "class_type": class_type, //
+                "code": token, //
               }),
             )
             .then((r) {
