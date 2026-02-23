@@ -1,4 +1,9 @@
-# chmod +x Terminal.sh
+# chmod +x server/Terminal.sh
+
+# ssh root@gtr-server
+
+
+cd /root/gtr_app
 
 # github pull
 git pull
