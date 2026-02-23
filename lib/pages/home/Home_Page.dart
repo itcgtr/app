@@ -42,6 +42,9 @@ class _Home_PageState extends State<Home_Page> {
   void initState() {
     super.initState();
     init();
+
+    // debug(BACKGROUND);
+    // debug(MINIO_PUBLIC);
   }
 
   void init() async {
@@ -54,11 +57,10 @@ class _Home_PageState extends State<Home_Page> {
   @override
   Widget build(BuildContext context) {
     //
-    List<Widget> images = [
-      Image.network('$MINIO_PUBLIC/banner/image_1.jpeg'), //
-      Image.network('$MINIO_PUBLIC/banner/image_2.jpeg'), //
-      Image.network('$MINIO_PUBLIC/banner/image_3.png'), //
-    ];
+    List<Widget> images = [];
+    for (var banner in BANNERS) {
+      images.add(Image.network(banner));
+    }
 
     return Scaffold(
       appBar: AppBar(

@@ -424,8 +424,12 @@ class _Profile_PageState extends State<Profile_Page> {
                             child:
                                 credential_data['background_image'] ==
                                     null //
-                                ? Image.network('$MINIO_PUBLIC/background.png', fit: BoxFit.cover)
-                                : Image.network('$MINIO_PUBLIC/${credential_data['background_image']}', fit: BoxFit.cover),
+                                ? Image.network(BACKGROUND, fit: BoxFit.cover)
+                                : Image.network(
+                                    '$MINIO_PUBLIC/${credential_data['background_image']}',
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (_, _, _) => Image.network(BACKGROUND, fit: BoxFit.cover),
+                                  ),
                           ),
                           if (access_token != null)
                             IconButton(
@@ -443,8 +447,12 @@ class _Profile_PageState extends State<Profile_Page> {
                             height: 100,
                             width: 100,
                             child: credential_data['profile_image'] == null
-                                ? Image.network('$MINIO_PUBLIC/logo.png', fit: BoxFit.cover) //
-                                : Image.network('$MINIO_PUBLIC/${credential_data['profile_image']}', fit: BoxFit.cover), //
+                                ? Image.network(LOGO_GTR, fit: BoxFit.cover) //
+                                : Image.network(
+                                    '$MINIO_PUBLIC/${credential_data['profile_image']}',
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (_, _, _) => Image.network(LOGO_GTR, fit: BoxFit.cover),
+                                  ), //
                           ),
                           if (access_token != null)
                             IconButton(
