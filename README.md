@@ -6,3 +6,7 @@
 # initialize flutter web project
 flutter create . --platforms=web
 ```
+
+##### Architecture Diagram
+
+![alt text](diagram/architecture.drawio.svg)
