@@ -5,11 +5,11 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 // import 'package:image_picker/image_picker.dart';
 
-import 'package:gtr_app/navigators/Routes.dart';
-import 'package:gtr_app/Environment.dart';
-import 'package:gtr_app/utilities/Debug.dart';
-import 'package:gtr_app/themes/Theme_Data.dart';
-import 'package:gtr_app/navigators/Navigator_Left.dart';
+import 'package:app_gtr/navigators/Routes.dart';
+import 'package:app_gtr/Environment.dart';
+import 'package:app_gtr/utilities/Debug.dart';
+import 'package:app_gtr/themes/Theme_Data.dart';
+import 'package:app_gtr/navigators/Navigator_Left.dart';
 
 void main() {
   usePathUrlStrategy();

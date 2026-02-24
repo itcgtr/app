@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:gtr_app/utilities/Debug.dart';
+import 'package:app_gtr/utilities/Debug.dart';
 
 Future<List<List<String>>> load_csv(String path) async {
   // load the CSV file as a string

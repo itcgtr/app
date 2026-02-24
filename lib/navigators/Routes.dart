@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:gtr_app/pages/attendance/View_Attendance_001.dart';
+import 'package:app_gtr/pages/attendance/View_Attendance_001.dart';
 
-import 'package:gtr_app/pages/contributors/Contributor.dart';
-import 'package:gtr_app/pages/Contact_Us.dart';
-import 'package:gtr_app/pages/Schedule.dart';
-import 'package:gtr_app/pages/attendance/QR_Generator_Page.dart';
-import 'package:gtr_app/pages/attendance/QR_Scan_Page.dart';
+import 'package:app_gtr/pages/contributors/Contributor.dart';
+import 'package:app_gtr/pages/Contact_Us.dart';
+import 'package:app_gtr/pages/Schedule.dart';
+import 'package:app_gtr/pages/attendance/QR_Generator_Page.dart';
+import 'package:app_gtr/pages/attendance/QR_Scan_Page.dart';
 
-import 'package:gtr_app/pages/courses/Course.dart';
-import 'package:gtr_app/pages/department/Alumni.dart';
-import 'package:gtr_app/pages/department/Facilities.dart';
-import 'package:gtr_app/pages/department/Staffs.dart';
-import 'package:gtr_app/pages/department/Students.dart';
-import 'package:gtr_app/pages/lab_and_service/Digital_FAB_Lab.dart';
-import 'package:gtr_app/pages/lab_and_service/EMC_Lab.dart';
-import 'package:gtr_app/pages/lab_and_service/Training.dart';
-import 'package:gtr_app/pages/profile/Reset.dart';
-import 'package:gtr_app/pages/profile/Sign_In.dart';
-import 'package:gtr_app/pages/profile/Sign_Up.dart';
-import 'package:gtr_app/pages/program/Associate_Degree.dart';
-import 'package:gtr_app/pages/program/Engineer_Degree.dart';
-import 'package:gtr_app/pages/project/Capacity_Building_Project.dart';
-import 'package:gtr_app/pages/project/Publication.dart';
-import 'package:gtr_app/pages/project/Research_Project.dart';
+import 'package:app_gtr/pages/courses/Course.dart';
+import 'package:app_gtr/pages/department/Alumni.dart';
+import 'package:app_gtr/pages/department/Facilities.dart';
+import 'package:app_gtr/pages/department/Staffs.dart';
+import 'package:app_gtr/pages/department/Students.dart';
+import 'package:app_gtr/pages/lab_and_service/Digital_FAB_Lab.dart';
+import 'package:app_gtr/pages/lab_and_service/EMC_Lab.dart';
+import 'package:app_gtr/pages/lab_and_service/Training.dart';
+import 'package:app_gtr/pages/profile/Reset.dart';
+import 'package:app_gtr/pages/profile/Sign_In.dart';
+import 'package:app_gtr/pages/profile/Sign_Up.dart';
+import 'package:app_gtr/pages/program/Associate_Degree.dart';
+import 'package:app_gtr/pages/program/Engineer_Degree.dart';
+import 'package:app_gtr/pages/project/Capacity_Building_Project.dart';
+import 'package:app_gtr/pages/project/Publication.dart';
+import 'package:app_gtr/pages/project/Research_Project.dart';
 
 class Routes {
   // anonymous routes

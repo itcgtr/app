@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import 'package:gtr_app/Environment.dart';
-import 'package:gtr_app/utilities/Debug.dart';
-import 'package:gtr_app/navigators/Routes.dart';
-import 'package:gtr_app/themes/Theme_Data.dart';
+import 'package:app_gtr/Environment.dart';
+import 'package:app_gtr/utilities/Debug.dart';
+import 'package:app_gtr/navigators/Routes.dart';
+import 'package:app_gtr/themes/Theme_Data.dart';
 
 void main() {
   runApp(const App());

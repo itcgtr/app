@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
-import 'package:gtr_app/Environment.dart';
-import 'package:gtr_app/pages/home/Home_Page.dart';
-import 'package:gtr_app/pages/profile/Profile.dart';
+import 'package:app_gtr/Environment.dart';
+import 'package:app_gtr/pages/home/Home_Page.dart';
+import 'package:app_gtr/pages/profile/Profile.dart';
 
-import 'package:gtr_app/themes/Theme_Data.dart';
-import 'package:gtr_app/navigators/Navigator_Left.dart';
+import 'package:app_gtr/themes/Theme_Data.dart';
+import 'package:app_gtr/navigators/Navigator_Left.dart';
 
 void main() {
   usePathUrlStrategy();

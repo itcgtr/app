@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:gtr_app/Environment.dart';
-import 'package:gtr_app/navigators/Routes.dart';
-import 'package:gtr_app/utilities/Debug.dart';
+import 'package:app_gtr/Environment.dart';
+import 'package:app_gtr/navigators/Routes.dart';
+import 'package:app_gtr/utilities/Debug.dart';
 
 class Navigator_Left extends StatefulWidget {
   const Navigator_Left({super.key});

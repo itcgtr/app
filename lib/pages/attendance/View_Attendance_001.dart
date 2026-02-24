@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import 'package:gtr_app/Environment.dart';
-import 'package:gtr_app/themes/Theme_Data.dart';
-import 'package:gtr_app/utilities/Debug.dart';
+import 'package:app_gtr/Environment.dart';
+import 'package:app_gtr/themes/Theme_Data.dart';
+import 'package:app_gtr/utilities/Debug.dart';
 
 void main() {
   runApp(const App());
