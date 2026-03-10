@@ -6,11 +6,13 @@ String TITLE = 'GTR Application';
 String DEPARTMENT_NAME_EN = "Department of Telecommunications and Network Engineering";
 String DEPARTMENT_NAME_FR = "Génie des Télécommunications et Réseaux";
 
-// fastapi URL
-String HOST_API = kDebugMode ? 'http://127.0.0.1:8000' : 'https://api.codeshift.me';
+// stage
+// String HOST_API = 'http://127.0.0.1:8000';
+// String MINIO_PUBLIC = 'http://gtr-server:9000/public';
 
-// minio URL public
-String MINIO_PUBLIC = kDebugMode ? 'http://gtr-server:9000/public' : 'https://sss.gtr.muysengly.com/public';
+// product
+String HOST_API = 'https://api.gtr.muysengly.com';
+String MINIO_PUBLIC = 'http://sss.gtr.muysengly.com/public';
 
 String LOGO_ITC = "$MINIO_PUBLIC/assets/logo_itc.png";
 String LOGO_GTR = "$MINIO_PUBLIC/assets/logo_gtr.png";
