@@ -577,7 +577,7 @@ class _Profile_PageState extends State<Profile_Page> {
                           Icon(Icons.phone), //
                           SizedBox(width: 8, height: 40),
                           Text("Phone: ", style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text(credential_data['phone'] ?? ""),
+                          Text(credential_data['phone_number'] ?? ""),
                           Spacer(),
                           if (access_token != null)
                             IconButton(

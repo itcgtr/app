@@ -10,9 +10,7 @@ String DEPARTMENT_NAME_FR = "Génie des Télécommunications et Réseaux";
 String HOST_API = kDebugMode ? 'http://127.0.0.1:8000' : 'https://api.codeshift.me';
 
 // minio URL public
-// String MINIO = 'https://pubs.codeshift.me'; // staging
-String MINIO = 'https://pub.codeshift.me'; // production
-String MINIO_PUBLIC = '$MINIO/public';
+String MINIO_PUBLIC = kDebugMode ? 'http://gtr-server:9000/public' : 'https://sss.gtr.muysengly.com/public';
 
 String LOGO_ITC = "$MINIO_PUBLIC/assets/logo_itc.png";
 String LOGO_GTR = "$MINIO_PUBLIC/assets/logo_gtr.png";
