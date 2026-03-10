@@ -11,8 +11,8 @@ String DEPARTMENT_NAME_FR = "Génie des Télécommunications et Réseaux";
 // String MINIO_PUBLIC = 'http://gtr-server:9000/public';
 
 // product
-String HOST_API = 'https://api.gtr.muysengly.com';
-String MINIO_PUBLIC = 'http://sss.gtr.muysengly.com/public';
+String HOST_API = 'https://api_gtr.muysengly.com';
+String MINIO_PUBLIC = 'https://sss_gtr.muysengly.com/public';
 
 String LOGO_ITC = "$MINIO_PUBLIC/assets/logo_itc.png";
 String LOGO_GTR = "$MINIO_PUBLIC/assets/logo_gtr.png";
