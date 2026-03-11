@@ -27,9 +27,7 @@ class _Navigator_LeftState extends State<Navigator_Left> {
             height: 200, //
             alignment: Alignment.center,
             child: Image.network(
-              BACKGROUND, //
-              // 'http://gtr-server:9000/public/assets/background.png', //
-              // 'http://sss.gtr.muysengly.com/public/assets/background.png', //
+              '$MINIO_PUBLIC/200/assets/background.png', //
               height: 200,
               fit: BoxFit.cover, //
             ), //

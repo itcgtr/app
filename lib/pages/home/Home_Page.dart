@@ -58,9 +58,10 @@ class _Home_PageState extends State<Home_Page> {
   Widget build(BuildContext context) {
     //
     List<Widget> images = [];
-    for (var banner in BANNERS) {
-      images.add(Image.network(banner));
-    }
+
+    images.add(Image.network("$MINIO_PUBLIC/200/assets/banner-1.png"));
+    images.add(Image.network("$MINIO_PUBLIC/200/assets/banner-2.png"));
+    images.add(Image.network("$MINIO_PUBLIC/200/assets/banner-3.png"));
 
     return Scaffold(
       appBar: AppBar(
@@ -88,20 +89,12 @@ class _Home_PageState extends State<Home_Page> {
               child: Column(
                 children: [
                   Text('Welcome to GTR App Home Page'), //
-                  // Container(
-                  //   child: CarouselSlider(
-                  //     options: CarouselOptions(
-                  //       aspectRatio: 2.0, //
-                  //       enlargeCenterPage: true,
-                  //       enableInfiniteScroll: false,
-                  //       initialPage: 2,
-                  //       autoPlay: true,
-                  //     ),
-                  //     items: images,
-                  //   ),
-                  // ),
                   CarouselSlider(
-                    options: CarouselOptions(enlargeCenterPage: true, autoPlay: true),
+                    options: CarouselOptions(
+                      height: 200.0, //
+                      enlargeCenterPage: true,
+                      autoPlay: true,
+                    ),
                     items: images.map((item) => Center(child: item)).toList(),
                   ),
                 ],

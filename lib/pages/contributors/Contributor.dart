@@ -296,7 +296,7 @@ class _Contributor_PageState extends State<Contributor_Page> {
                           : ReorderableDragStartListener(index: i, child: Icon(Icons.drag_indicator)),
                       SizedBox(width: 8),
                       search_data[i]['image'] == null
-                          ? Image.network(LOGO_GTR, width: 50, height: 50, fit: BoxFit.cover) //
+                          ? Image.network('$MINIO_PUBLIC/100/assets/logo_gtr.png', width: 50, height: 50, fit: BoxFit.cover) //
                           : Image.network('$MINIO_PUBLIC/${search_data[i]['image']}', width: 50, height: 50, fit: BoxFit.cover), //
                     ],
                   ),

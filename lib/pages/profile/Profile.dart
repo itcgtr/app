@@ -355,7 +355,7 @@ class _Profile_PageState extends State<Profile_Page> {
         .post(
           '/credential/upload', //
           data: FormData.fromMap({
-            'background_image': MultipartFile.fromBytes(
+            'profile_image': MultipartFile.fromBytes(
               await image.readAsBytes(), //
               filename: image.name,
             ),
@@ -384,7 +384,7 @@ class _Profile_PageState extends State<Profile_Page> {
         .post(
           '/credential/upload', //
           data: FormData.fromMap({
-            'profile_image': MultipartFile.fromBytes(
+            'background_image': MultipartFile.fromBytes(
               await image.readAsBytes(), //
               filename: image.name,
             ),
@@ -424,11 +424,11 @@ class _Profile_PageState extends State<Profile_Page> {
                             child:
                                 credential_data['background_image'] ==
                                     null //
-                                ? Image.network(BACKGROUND, fit: BoxFit.cover)
+                                ? Image.network('$MINIO_PUBLIC/200/assets/background.png', fit: BoxFit.cover)
                                 : Image.network(
-                                    '$MINIO_PUBLIC/${credential_data['background_image']}',
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (_, _, _) => Image.network(BACKGROUND, fit: BoxFit.cover),
+                                    '$MINIO_PUBLIC/200/images/${credential_data['background_image']}',
+                                    fit: BoxFit.contain,
+                                    errorBuilder: (_, _, _) => Image.network('$MINIO_PUBLIC/200/assets/background.png', fit: BoxFit.cover),
                                   ),
                           ),
                           if (access_token != null)
@@ -447,11 +447,11 @@ class _Profile_PageState extends State<Profile_Page> {
                             height: 100,
                             width: 100,
                             child: credential_data['profile_image'] == null
-                                ? Image.network(LOGO_GTR, fit: BoxFit.cover) //
+                                ? Image.network('$MINIO_PUBLIC/100/assets/logo_gtr.png', fit: BoxFit.cover) //
                                 : Image.network(
-                                    '$MINIO_PUBLIC/${credential_data['profile_image']}',
+                                    '$MINIO_PUBLIC/100/images/${credential_data['profile_image']}',
                                     fit: BoxFit.cover,
-                                    errorBuilder: (_, _, _) => Image.network(LOGO_GTR, fit: BoxFit.cover),
+                                    errorBuilder: (_, _, _) => Image.network('$MINIO_PUBLIC/100/assets/logo_gtr.png', fit: BoxFit.cover),
                                   ), //
                           ),
                           if (access_token != null)
