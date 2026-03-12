@@ -33,6 +33,7 @@ class View_Attendance_001 extends StatefulWidget {
 }
 
 class _View_Attendance_001State extends State<View_Attendance_001> {
+  //
   final Dio dio = Dio(
     BaseOptions(
       baseUrl: HOST_API, //
@@ -41,64 +42,65 @@ class _View_Attendance_001State extends State<View_Attendance_001> {
       receiveTimeout: Duration(seconds: 10), //
     ),
   );
+  Timer? _debounce;
+  TextEditingController controller_search = TextEditingController();
+  ScrollController controller_listview = ScrollController();
 
-  List<Map<String, dynamic>> data = [];
-  List<Map<String, dynamic>> search_data = [];
+  //
 
+  int LIMIT = 100;
   bool is_search = false;
+  bool has_more = true;
 
-  TextEditingController c_search = TextEditingController();
+  List<Map<String, dynamic>> data_all = [];
 
-  @override
-  void initState() {
-    super.initState();
-    init();
+  //
+
+  void on_search() async {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 200), () async {
+      await dio
+          .post(
+            '/attendance/read', //
+            data: FormData.fromMap({
+              'query': controller_search.text, //
+              'offset': 0,
+              'limit': LIMIT,
+            }),
+          )
+          .then((r) {
+            data_all = List<Map<String, dynamic>>.from(r.data);
+            controller_listview.jumpTo(0);
+            has_more = true;
+            setState(() {});
+          })
+          .catchError((e) {});
+    });
+    //
   }
 
-  void init() async {
+  void load_more() async {
+    if (!has_more) return;
     dio
         .post(
-          '/attendance/view',
-          data: FormData.fromMap({}), //
+          '/attendance/read', //
+          data: FormData.fromMap({
+            'query': controller_search.text, //
+            'offset': data_all.length,
+          }),
         )
         .then((r) {
-          data = List<Map<String, dynamic>>.from(r.data);
-          search_data = List<Map<String, dynamic>>.from(r.data);
-          // debug(response);
+          has_more = (r.data is List) ? (r.data.length >= LIMIT) : false;
+          data_all.addAll(List<Map<String, dynamic>>.from(r.data));
           setState(() {});
         })
-        .catchError((_) {
-          // show_snackbar_message(context: context, message: "Error", color: Colors.red);
-        });
-  }
-
-  Timer? _debounce;
-
-  void on_search(String value) {
-    if (_debounce?.isActive ?? false) _debounce!.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-      if (data.isEmpty) {
-        search_data = [];
-        setState(() {});
-        return;
-      }
-      final searchLower = value.toLowerCase();
-      search_data = data.where((d) {
-        for (var key in d.keys) {
-          if (d[key]?.toString().toLowerCase().contains(searchLower) ?? false) {
-            return true;
-          }
-        }
-        return false;
-      }).toList();
-      setState(() {});
-    });
+        .catchError((e) {});
   }
 
   @override
   void dispose() {
     _debounce?.cancel();
-    c_search.dispose();
+    controller_search.dispose();
     super.dispose();
   }
 
@@ -108,30 +110,36 @@ class _View_Attendance_001State extends State<View_Attendance_001> {
       appBar: AppBar(
         title: is_search
             ? TextField(
-                controller: c_search,
+                controller: controller_search,
                 autofocus: true,
                 decoration: InputDecoration(
                   hintText: 'Search ...',
                   border: InputBorder.none, //
                 ),
-                onChanged: (value) {
-                  on_search(value);
+                onChanged: (v) {
+                  on_search();
                 },
               )
             : Text("View Attendance"), //
         actionsPadding: EdgeInsets.only(right: 16),
         actions: [
-          IconButton(
-            onPressed: () {
-              is_search = !is_search;
-              if (!is_search) {
-                c_search.clear();
-                on_search('');
-              }
-              setState(() {});
-            },
-            icon: is_search ? Icon(Icons.close) : Icon(Icons.search),
-          ),
+          if (!is_search)
+            IconButton(
+              onPressed: () {
+                is_search = true;
+                setState(() {});
+              },
+              icon: Icon(Icons.search),
+            ),
+          if (is_search)
+            IconButton(
+              onPressed: () {
+                is_search = false;
+                controller_search.clear();
+                on_search();
+              },
+              icon: Icon(Icons.close),
+            ),
         ],
       ),
       body: Padding(
@@ -139,96 +147,110 @@ class _View_Attendance_001State extends State<View_Attendance_001> {
         child: Center(
           child: SizedBox(
             width: 600,
-            child: search_data.isEmpty
-                ? SizedBox.shrink()
-                : Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.centerLeft, //
-                              child: Text(
-                                "Student Name", //
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 50, //
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Code", //
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            width: 50, //
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Type", //
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            width: 100, //
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Scanned At", //
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                        ],
-                      ),
-                      SizedBox(height: 8),
-
-                      Expanded(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: search_data.length,
-                            itemBuilder: (context, index) {
-                              return Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.centerLeft, //
-                                      child: Text(
-                                        search_data[index][search_data[0].keys.elementAt(0)].toString(), //
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 50, //
-                                    alignment: Alignment.center,
-                                    child: Text(search_data[index][search_data[0].keys.elementAt(1)].toString()),
-                                  ),
-                                  Container(
-                                    width: 50, //
-                                    alignment: Alignment.center,
-                                    child: Text(search_data[index][search_data[0].keys.elementAt(2)].toString()),
-                                  ),
-                                  Container(
-                                    width: 100, //
-                                    alignment: Alignment.center,
-                                    child: Text(search_data[index][search_data[0].keys.elementAt(3)].toString()),
-                                  ),
-                                  SizedBox(width: 8),
-                                ],
-                              );
-                            },
-                          ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerLeft, //
+                        child: Text(
+                          "Student Name", //
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                    ],
+                    ),
+                    Container(
+                      width: 50, //
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Code", //
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      width: 50, //
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Type", //
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      width: 100, //
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Scan At", //
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                  ],
+                ),
+                SizedBox(height: 8),
+
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: ListView.builder(
+                      controller: controller_listview,
+                      itemCount: data_all.length + 1,
+                      shrinkWrap: true,
+                      itemBuilder: (c, i) {
+                        if (i == data_all.length) {
+                          if (!has_more) {
+                            return Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Center(child: Text("Loaded ${data_all.length}/${data_all.length} items")),
+                            );
+                          }
+
+                          load_more();
+
+                          return const Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Center(child: CircularProgressIndicator()),
+                          );
+                        }
+                        return Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.centerLeft, //
+                                child: Text(data_all[i]['student_name'] ?? '', overflow: TextOverflow.ellipsis),
+                              ),
+                            ),
+                            Container(
+                              width: 50, //
+                              alignment: Alignment.center,
+                              child: Text(data_all[i]['code'] ?? ''), //
+                            ),
+                            Container(
+                              width: 50, //
+                              alignment: Alignment.center,
+                              child: Text(data_all[i]['type'] ?? ''),
+                            ),
+                            Container(
+                              width: 100, //
+                              alignment: Alignment.center,
+                              child: Text(data_all[i]['scan_at'] ?? ''),
+                            ),
+                            SizedBox(width: 8),
+                          ],
+                        );
+                      },
+                    ),
                   ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {}, //
+      //   child: const Icon(Icons.download),
+      // ),
     );
   }
 }
